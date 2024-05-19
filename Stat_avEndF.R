@@ -1,0 +1,52 @@
+library(ggpubr)
+library(ggplot2)
+
+###EXPLORATORY DATA ANALYSIS
+
+# 2.average frequency of last cycle
+summary(Ref_DE$avEndF)
+summary(Ref_DK$avEndF)
+
+## visualization
+#histogram 
+ggplot() +
+  geom_histogram(data = Ref_DE, aes(x = avEndF), bins = 30, fill = 'blue', alpha = 0.5) +
+  geom_histogram(data = Ref_DK, aes(x = avEndF), bins = 30, fill = 'orange', alpha = 0.5) +
+  labs(title = "Average Frequency of last Cycle", x = "Average Frequency", y = "Count") +
+  theme_minimal()
+
+#boxplot
+Ref_DE$group <- 'Dataset DE'
+Ref_DK$group <- 'Dataset DK'
+Ref_both <- rbind(Ref_DE, Ref_DK)
+
+ggplot(Ref_both, aes(x = group, y = avEndF, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Average Frequency of last Cycle", x = "Group", y = "Average Frequency") +
+  theme_minimal()
+
+#violin plot
+ggplot(Ref_both, aes(x = group, y = avEndF, fill = group)) +
+  geom_violin(trim = FALSE) +
+  labs(title = "Violin Plot of of Average Frequency of last Cycle", x = "Group", y = "Average Frequency") +
+  theme_minimal()
+
+#density plot
+ggplot() +
+  geom_density(data = Ref_DE, aes(x = avEndF), fill = 'blue', alpha = 0.5) +
+  geom_density(data = Ref_DK, aes(x = avEndF), fill = 'orange', alpha = 0.5) +
+  labs(title = "Density Plot of Average Frequency of last Cycle", x = "Average Frequency", y = "Density") +
+  theme_minimal()
+
+#scatter plot with jitter
+ggplot(Ref_both, aes(x = group, y = avEndF, color = group)) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(title = "Scatter Plot of Average Frequency of last Cycle", x = "Group", y = "Average Frequency") +
+  theme_minimal()
+
+#faceted histogram
+ggplot(Ref_both, aes(x = avEndF, fill = group)) +
+  geom_histogram(alpha = 0.6, position = 'identity', bins = 30) +
+  facet_wrap(~group) +
+  labs(title = "Histogram of Average Frequency of last Cycle", x = "Average Frequency", y = "Count") +
+  theme_minimal()
