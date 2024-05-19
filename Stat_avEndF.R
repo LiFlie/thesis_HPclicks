@@ -50,3 +50,29 @@ ggplot(Ref_both, aes(x = avEndF, fill = group)) +
   facet_wrap(~group) +
   labs(title = "Histogram of Average Frequency of last Cycle", x = "Average Frequency", y = "Count") +
   theme_minimal()
+
+### CHECK ASSUMPTIONS / REQUIREMENTS
+
+#checking if data follows normal distribution (Shapiro-Wilk (max. 5000 samples),  Kolmogorov-Smirnov or Q-Q-Plots)
+qqnorm(Ref_DE$avEndF)
+qqline(Ref_DE$avEndF)
+ks.test(Ref_DE$avEndF, "pnorm", mean = mean(Ref_DE$avEndF), sd = sd(Ref_DE$avEndF))
+# no normal distribution, significant difference between sample and normal distribution (ks test)
+
+qqnorm(Ref_DK$avEndF)
+qqline(Ref_DK$avEndF)
+ks.test(Ref_DK$avEndF, "pnorm", mean = mean(Ref_DK$avEndF), sd = sd(Ref_DK$avEndF))
+#very small p-value (< 2.2e-16) suggests that the sample distribution significantly differs from the normal distribution
+
+#checking for homogeneity of variances (Levene's Test)
+install.packages("car")
+library(car)
+leveneTest(avEndF ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))), data = data.frame(avEndF = c(Ref_DE$avEndF, Ref_DK$avEndF)))
+#p-value (<2.2e-16) < 0.05 --> statistically significant difference in variances between the groups
+#null hypothesis of homogeneity of variances rejected
+
+### STATISTICAL TEST
+
+t.test(Ref_DE$avEndF, Ref_DK$avEndF, var.equal = FALSE)
+wilcox.test(Ref_DE$avEndF, Ref_DK$avEndF)
+#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency

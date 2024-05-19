@@ -50,3 +50,30 @@ ggplot(Ref_both, aes(x = TrDur_us, fill = group)) +
   facet_wrap(~group) +
   labs(title = "Histogram of Average Train Duration", x = "Average Train Duration", y = "Count") +
   theme_minimal()
+
+
+### CHECK ASSUMPTIONS / REQUIREMENTS
+
+#checking if data follows normal distribution (Shapiro-Wilk (max. 5000 samples),  Kolmogorov-Smirnov or Q-Q-Plots)
+qqnorm(Ref_DE$TrDur_us)
+qqline(Ref_DE$TrDur_us)
+ks.test(Ref_DE$TrDur_us, "pnorm", mean = mean(Ref_DE$TrDur_us), sd = sd(Ref_DE$TrDur_us))
+# no normal distribution, significant difference between sample and normal distribution (ks test)
+
+qqnorm(Ref_DK$TrDur_us)
+qqline(Ref_DK$TrDur_us)
+ks.test(Ref_DK$TrDur_us, "pnorm", mean = mean(Ref_DK$TrDur_us), sd = sd(Ref_DK$TrDur_us))
+#very small p-value (< 2.2e-16) suggests that the sample distribution significantly differs from the normal distribution
+
+#checking for homogeneity of variances (Levene's Test)
+install.packages("car")
+library(car)
+leveneTest(TrDur_us ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))), data = data.frame(TrDur_us = c(Ref_DE$TrDur_us, Ref_DK$TrDur_us)))
+#p-value (<2.2e-16) < 0.05 --> statistically significant difference in variances between the groups
+#null hypothesis of homogeneity of variances rejected
+
+### STATISTICAL TEST
+
+t.test(Ref_DE$TrDur_us, Ref_DK$TrDur_us, var.equal = FALSE)
+wilcox.test(Ref_DE$TrDur_us, Ref_DK$TrDur_us)
+#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency

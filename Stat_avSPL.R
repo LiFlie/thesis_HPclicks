@@ -50,3 +50,29 @@ ggplot(Ref_both, aes(x = avSPL, fill = group)) +
   facet_wrap(~group) +
   labs(title = "Histogram of Average Sound Pressure Level", x = "Average SPL", y = "Count") +
   theme_minimal()
+
+### CHECK ASSUMPTIONS / REQUIREMENTS
+
+#checking if data follows normal distribution (Shapiro-Wilk (max. 5000 samples),  Kolmogorov-Smirnov or Q-Q-Plots)
+qqnorm(Ref_DE$avSPL)
+qqline(Ref_DE$avSPL)
+ks.test(Ref_DE$avSPL, "pnorm", mean = mean(Ref_DE$avSPL), sd = sd(Ref_DE$avSPL))
+# no normal distribution, significant difference between sample and normal distribution (ks test)
+
+qqnorm(Ref_DK$avSPL)
+qqline(Ref_DK$avSPL)
+ks.test(Ref_DK$avSPL, "pnorm", mean = mean(Ref_DK$avSPL), sd = sd(Ref_DK$avSPL))
+#very small p-value (< 2.2e-16) suggests that the sample distribution significantly differs from the normal distribution
+
+#checking for homogeneity of variances (Levene's Test)
+install.packages("car")
+library(car)
+leveneTest(avSPL ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))), data = data.frame(avSPL = c(Ref_DE$avSPL, Ref_DK$avSPL)))
+#p-value (<2.2e-16) < 0.05 --> statistically significant difference in variances between the groups
+#null hypothesis of homogeneity of variances rejected
+
+### STATISTICAL TEST
+
+t.test(Ref_DE$avSPL, Ref_DK$avSPL, var.equal = FALSE)
+wilcox.test(Ref_DE$avSPL, Ref_DK$avSPL)
+#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency

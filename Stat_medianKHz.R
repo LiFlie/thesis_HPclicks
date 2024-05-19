@@ -67,6 +67,30 @@ ggplot(Ref_both, aes(x = medianKHz, fill = group)) +
 
 ### CHECK ASSUMPTIONS / REQUIREMENTS
 
+#checking if data follows normal distribution (Shapiro-Wilk,  Kolmogorov-Smirnov or Q-Q-Plots)
+qqnorm(Ref_DE$medianKHz)
+qqline(Ref_DE$medianKHz)
+ks.test(Ref_DE$medianKHz, "pnorm", mean = mean(Ref_DE$medianKHz), sd = sd(Ref_DE$medianKHz))
+# no normal distribution, significant difference between sample and normal distribution (ks test)
+
+qqnorm(Ref_DK$medianKHz)
+qqline(Ref_DK$medianKHz)
+ks.test(Ref_DK$medianKHz, "pnorm", mean = mean(Ref_DK$medianKHz), sd = sd(Ref_DK$medianKHz))
+#very small p-value (< 2.2e-16) suggests that the sample distribution significantly differs from the normal distribution
+
+#checking for homogeneity of variances (Levene's Test)
+install.packages("car")
+library(car)
+leveneTest(medianKHz ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))), data = data.frame(medianKHz = c(Ref_DE$medianKHz, Ref_DK$medianKHz)))
+#p-value (0.004727) < 0.05 --> statistically significant difference in variances between the groups
+#null hypothesis of homogeneity of variances rejected
+
+### STATISTICAL TEST
+
+t.test(Ref_DE$medianKHz, Ref_DK$medianKHz, var.equal = FALSE)
+wilcox.test(Ref_DE$medianKHz, Ref_DK$medianKHz)
+#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency
+
 
 
 ##PAIRWISE COMPARISON PLOTS
