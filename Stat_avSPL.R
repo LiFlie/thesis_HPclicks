@@ -75,4 +75,4 @@ leveneTest(avSPL ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))), dat
 
 t.test(Ref_DE$avSPL, Ref_DK$avSPL, var.equal = FALSE)
 wilcox.test(Ref_DE$avSPL, Ref_DK$avSPL)
-#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency
+#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the average sound pressure level

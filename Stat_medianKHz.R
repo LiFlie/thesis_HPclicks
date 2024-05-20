@@ -3,7 +3,6 @@
 
 ## R MARKDOWN??? 
 
-library(ggpubr)
 library(ggplot2)
 
 ###EXPLORATORY DATA ANALYSIS
@@ -90,8 +89,6 @@ leveneTest(medianKHz ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))),
 t.test(Ref_DE$medianKHz, Ref_DK$medianKHz, var.equal = FALSE)
 wilcox.test(Ref_DE$medianKHz, Ref_DK$medianKHz)
 #p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency
-
-
 
 ##PAIRWISE COMPARISON PLOTS
 

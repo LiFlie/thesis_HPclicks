@@ -76,4 +76,4 @@ leveneTest(TrDur_us ~ as.factor(c(rep(1, nrow(Ref_DE)), rep(2, nrow(Ref_DK)))), 
 
 t.test(Ref_DE$TrDur_us, Ref_DK$TrDur_us, var.equal = FALSE)
 wilcox.test(Ref_DE$TrDur_us, Ref_DK$TrDur_us)
-#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the criterion median frequency
+#p (<2.2e-16) < 0.05 --> there is a significant difference between the datasets for the average Train Duration
