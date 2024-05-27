@@ -1,0 +1,210 @@
+---
+title: "HPclicks average Train Duration"
+author: "Lina Fliess"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+```{r librarys, echo=FALSE}
+library(readxl)
+library(ggplot2)
+```
+
+```{r data DE, echo=FALSE}
+Ref_DE_Aschau <- read_excel("AS_78 2023 02 28 FPOD_6889_train_details_filtered.xlsx")
+Ref_DE_BoEck <- read_excel("BoEck 2023 02 07 FPOD_6877_train_details.xlsx")
+Ref_DE_Langholz <- read_excel("LA_77 2023 02 28 FPOD_6888_train_details_filtered.xlsx")
+#bind all dataframes from german ref stations
+Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
+```
+
+```{r data DK, echo=FALSE}     
+Ref_DK_6621 <- read_excel("2023 02 21 FPOD_6621 file0_train_details.xlsx")
+Ref_DK_6623 <- read_excel("2023 02 21  2023 02 21 FPOD_6623 file0 train details.xlsx")
+Ref_DK_6625 <- read_excel("20230221 2023 02 21 FPOD_6625 file0 train details.xlsx")
+#bind all dataframes from danish ref stations
+Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
+```
+
+```{r groups, echo=FALSE} 
+Ref_DE_Aschau$group <- 'Aschau'
+Ref_DE_BoEck$group <- 'BoEck'
+Ref_DE_Langholz$group <- 'Langholz'
+Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
+Ref_DK_6621$group <- '6621'
+Ref_DK_6623$group <- '6623'
+Ref_DK_6625$group <- '6625'
+Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
+Ref_both <- rbind(Ref_DE,Ref_DK)
+```
+
+## <span style="color:blue">Comparison of average Train Duration (micro seconds) </span>###
+
+# Germany
+
+### Exploratory Analysis
+
+```{r summarys DE}
+summary(Ref_DE_Aschau$TrDur_us)
+summary(Ref_DE_BoEck$TrDur_us)
+summary(Ref_DE_Langholz$TrDur_us)
+```
+
+###Visualization/Plots:
+
+```{r histogram DE, echo=FALSE}
+ggplot(Ref_DE, aes(x = TrDur_us, fill = group)) +
+  geom_histogram(bins = 50, alpha = 0.5, position = "identity") +
+  labs(title = "Average Train Duration Distribution", x = "Average Train Duration", y = "Count") +
+  scale_fill_manual(name = "Dataset", 
+                    values = c('Aschau' = 'blue',
+                               'BoEck' = 'green',
+                               'Langholz' = 'darkcyan')) +
+  theme(legend.position = "right")
+```
+
+
+```{r density plot DE, echo=FALSE}
+ggplot(Ref_DE, aes(x = TrDur_us, fill = group)) +
+  geom_density(bins = 50, alpha = 0.5, position = "identity") +
+  labs(title = "Average Train Duration Distribution", x = "Average Train Duration", y = "Count") +
+  scale_fill_manual(name = "Dataset", 
+                    values = c('Aschau' = 'blue',
+                               'BoEck' = 'green',
+                               'Langholz' = 'darkcyan')) +
+  theme(legend.position = "right")
+```
+
+```{r boxplot DE, echo=FALSE}
+ggplot(Ref_DE, aes(x = group, y = TrDur_us, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Average Train Duration", x = "Group", y = "Average Train Duration") +
+  theme_minimal()
+```
+
+```{r scatter plot DE, echo=FALSE}
+ggplot(Ref_DE, aes(x = group, y = TrDur_us, color = group)) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(title = "Scatter Plot of Average Train Duration", x = "Group", y = "Average Train Duration") +
+  theme_minimal()
+```
+
+### Statistical Test (Kruskal-Wallis)
+
+```{r test DE, echo=FALSE}
+kruskal.test(data = Ref_DE, TrDur_us ~ group)
+```
+
+# Denmark
+
+### Exploratory Analysis
+
+```{r summarys DK}
+summary(Ref_DK_6621$TrDur_us)
+summary(Ref_DK_6623$TrDur_us)
+summary(Ref_DK_6625$TrDur_us)
+```
+
+###Visualization/Plots:
+
+```{r histogram DK, echo=FALSE}
+ggplot(Ref_DK, aes(x = TrDur_us, fill = group)) +
+  geom_histogram(bins = 50, alpha = 0.5, position = "identity") +
+  labs(title = "Average Train Duration Distribution", x = "Average Train Duration", y = "Count") +
+  scale_fill_manual(name = "Dataset", 
+                    values = c('6621' = 'gold', 
+                               '6623' = 'orange', 
+                               '6625' = 'red')) +
+  theme(legend.position = "right")
+```
+
+```{r density plot DK, echo=FALSE}
+ggplot(Ref_DK, aes(x = TrDur_us, fill = group)) +
+  geom_density(bins = 50, alpha = 0.5, position = "identity") +
+  labs(title = "Average Train Duration Distribution", x = "Average Train Duration", y = "Count") +
+  scale_fill_manual(name = "Dataset", 
+                    values = c('6621' = 'gold', 
+                               '6623' = 'orange', 
+                               '6625' = 'red')) +
+  theme(legend.position = "right")
+```
+
+```{r boxplot DK, echo=FALSE}
+ggplot(Ref_DK, aes(x = group, y = TrDur_us, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Average Train Duration", x = "Group", y = "Average Train Duration") +
+  theme_minimal()
+```
+
+```{r scatter plot DK, echo=FALSE}
+ggplot(Ref_DK, aes(x = group, y = TrDur_us, color = group)) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(title = "Scatter Plot of Average Train Duration", x = "Group", y = "Average Train Duration") +
+  theme_minimal()
+```
+
+### Statistical Test (Kruskal-Wallis)
+
+```{r test DK, echo=FALSE}
+kruskal.test(data = Ref_DK, TrDur_us ~ group)
+```
+
+# Germany & Denmark
+
+### Exploratory Analysis
+
+```{r summarys DE/DK}
+summary(Ref_DE_Aschau$TrDur_us)
+summary(Ref_DE_BoEck$TrDur_us)
+summary(Ref_DE_Langholz$TrDur_us)
+summary(Ref_DK_6621$TrDur_us)
+summary(Ref_DK_6623$TrDur_us)
+summary(Ref_DK_6625$TrDur_us)
+```
+
+###Visualization/Plots:
+
+```{r histogram DE/DK, echo=FALSE}
+ggplot(Ref_both, aes(x = TrDur_us, fill = group)) +
+  geom_histogram(bins = 50, alpha = 0.5, position = "identity") +
+  labs(title = "Average Train Duration Distribution", x = "Average Train Duration", y = "Count") +
+  scale_fill_manual(name = "Dataset", 
+                    values = c('Aschau' = 'blue',
+                               'BoEck' = 'green',
+                               'Langholz' = 'darkcyan',
+                               '6621' = 'gold', 
+                               '6623' = 'orange', 
+                               '6625' = 'red')) +
+  theme(legend.position = "right")
+```
+
+```{r density plot2 DE/DK, echo=FALSE}
+ggplot(Ref_both, aes(x = TrDur_us, fill = group)) +
+  geom_density(bins = 50, alpha = 0.5, position = "identity") +
+  labs(title = "Average Train Duration Distribution", x = "Average Train Duration", y = "Count") +
+  theme_minimal()
+```
+
+```{r boxplot DE/DK, echo=FALSE}
+ggplot(Ref_both, aes(x = group, y = TrDur_us, fill = group)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Average Train Duration", x = "Group", y = "Average Train Duration") +
+  theme_minimal()
+```
+
+```{r scatter plot DE/DK, echo=FALSE}
+ggplot(Ref_both, aes(x = group, y = TrDur_us, color = group)) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(title = "Scatter Plot of Average Train Duration", x = "Group", y = "Average Train Duration") +
+  theme_minimal()
+```
+
+### Statistical Test (Kruskal-Wallis)
+
+```{r test DE/DK, echo=FALSE}
+kruskal.test(data = Ref_both, TrDur_us ~ group)
+```
