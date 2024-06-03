@@ -207,9 +207,10 @@ ggplot(Ref_both, aes(x = group, y = medianKHz, color = group)) +
 
 ```{r test DE/DK, echo=FALSE}
 kruskal_result <- kruskal.test(data = Ref_both, medianKHz ~ group)
+kruskal_result
 ```
 
-### Effect Size Calculation (Eta/Epsilon-Squared)
+### Effect Size Calculation (Eta/Epsilon-Squared/Rank-Biserial)
 
 ```{r effect DE/DK, echo=FALSE}
 H <- kruskal_result$statistic
@@ -231,4 +232,51 @@ epsilon_squared #0.07677
 # Rank-biserial-Correlation: provides a straightforward way to understand the effect size in terms of the standard normal distribution. An effect size of r around 0.1 is considered small, around 0.3 is medium, and around 0.5 is large.
 r <- Z/sqrt(N)
 r #0.277
+```
+
+### Correlations
+
+```{r cor DE, echo=FALSE}
+par(mfrow = c(2,2))
+plot(Ref_DE$medianKHz,Ref_DE$MinICI_us)
+cor(Ref_DE$medianKHz,Ref_DE$MinICI_us, method = "spearman")
+
+plot(Ref_DE$medianKHz,Ref_DE$NofClstrs)
+cor(Ref_DE$medianKHz,Ref_DE$NofClstrs, method = "spearman")
+
+plot(Ref_DE$medianKHz, Ref_DE$AvPRF)
+cor(Ref_DE$medianKHz,Ref_DE$AvPRF, method = "spearman")
+
+plot(Ref_DE$medianKHz,Ref_DE$nActualClx)
+cor(Ref_DE$medianKHz,Ref_DE$nActualClx, method = "spearman")
+```
+
+```{r cor DK, echo=FALSE}
+par(mfrow = c(2,2))
+plot(Ref_DK$medianKHz,Ref_DK$MinICI_us)
+cor(Ref_DK$medianKHz,Ref_DK$MinICI_us, method = "spearman")
+
+plot(Ref_DK$medianKHz,Ref_DK$NofClstrs)
+cor(Ref_DK$medianKHz,Ref_DK$NofClstrs, method = "spearman")
+
+plot(Ref_DK$medianKHz, Ref_DK$AvPRF)
+cor(Ref_DK$medianKHz,Ref_DK$AvPRF, method = "spearman")
+
+plot(Ref_DK$medianKHz,Ref_DK$nActualClx)
+cor(Ref_DK$medianKHz,Ref_DK$nActualClx, method = "spearman")
+```
+
+```{r cor DE/DK, echo=FALSE}
+par(mfrow = c(2,2))
+plot(Ref_both$medianKHz,Ref_both$MinICI_us)
+cor(Ref_both$medianKHz,Ref_both$MinICI_us, method = "spearman")
+
+plot(Ref_both$medianKHz,Ref_both$NofClstrs)
+cor(Ref_both$medianKHz,Ref_both$NofClstrs, method = "spearman")
+
+plot(Ref_both$medianKHz, Ref_both$AvPRF)
+cor(Ref_both$medianKHz,Ref_both$AvPRF, method = "spearman")
+
+plot(Ref_both$medianKHz,Ref_both$nActualClx)
+cor(Ref_both$medianKHz,Ref_both$nActualClx, method = "spearman")
 ```

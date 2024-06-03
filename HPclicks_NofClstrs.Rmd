@@ -1,5 +1,5 @@
 ---
-title: "HPclicks average frequency of last cycle"
+title: "HPclicks number of clusters"
 author: "Lina Fliess"
 date: "`r Sys.Date()`"
 output: html_document
@@ -42,24 +42,24 @@ Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
 Ref_both <- rbind(Ref_DE,Ref_DK)
 ```
 
-## <span style="color:blue">Comparison of average frequency of last Cycle</span>##
+### <span style="color:blue">Comparison of median frequency of a whole train</span>###
 
 # Germany
 
 ### Exploratory Analysis
 
 ```{r summarys DE}
-summary(Ref_DE_Aschau$avEndF)
-summary(Ref_DE_BoEck$avEndF)
-summary(Ref_DE_Langholz$avEndF)
+summary(Ref_DE_Aschau$NofClstrs)
+summary(Ref_DE_BoEck$NofClstrs)
+summary(Ref_DE_Langholz$NofClstrs)
 ```
 
 ###Visualization/Plots:
 
 ```{r histogram DE, echo=FALSE}
-ggplot(Ref_DE, aes(x = avEndF, fill = group)) +
+ggplot(Ref_DE, aes(x = NofClstrs, fill = group)) +
   geom_histogram(bins = 50, alpha = 0.5, position = "identity") +
-  labs(title = "Average of End Frequency Distribution", x = "Average End Frequency", y = "Count") +
+  labs(title = "number of clusters Distribution", x = "number of clusters", y = "Count") +
   scale_fill_manual(name = "Dataset", 
                     values = c('Aschau' = 'blue',
                                'BoEck' = 'green',
@@ -69,9 +69,9 @@ ggplot(Ref_DE, aes(x = avEndF, fill = group)) +
 
 
 ```{r density plot DE, echo=FALSE}
-ggplot(Ref_DE, aes(x = avEndF, fill = group)) +
+ggplot(Ref_DE, aes(x = NofClstrs, fill = group)) +
   geom_density(bins = 50, alpha = 0.5, position = "identity") +
-  labs(title = "Average of End Frequency Distribution", x = "Average End Frequency", y = "Count") +
+  labs(title = "number of clusters Distribution", x = "number of clusters", y = "Count") +
   scale_fill_manual(name = "Dataset", 
                     values = c('Aschau' = 'blue',
                                'BoEck' = 'green',
@@ -80,23 +80,23 @@ ggplot(Ref_DE, aes(x = avEndF, fill = group)) +
 ```
 
 ```{r boxplot DE, echo=FALSE}
-ggplot(Ref_DE, aes(x = group, y = avEndF, fill = group)) +
+ggplot(Ref_DE, aes(x = group, y = NofClstrs, fill = group)) +
   geom_boxplot() +
-  labs(title = "Boxplot of Average End Frequency", x = "Group", y = "Average End Frequency") +
+  labs(title = "Boxplot of number of clusters", x = "Group", y = "number of clusters") +
   theme_minimal()
 ```
 
 ```{r scatter plot DE, echo=FALSE}
-ggplot(Ref_DE, aes(x = group, y = avEndF, color = group)) +
+ggplot(Ref_DE, aes(x = group, y = NofClstrs, color = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
-  labs(title = "Scatter Plot of Mean Frequency", x = "Group", y = "Average End Frequency") +
+  labs(title = "Scatter Plot of number of clusters", x = "Group", y = "number of clusters") +
   theme_minimal()
 ```
 
 ### Statistical Test (Kruskal-Wallis)
 
 ```{r test DE, echo=FALSE}
-kruskal.test(data = Ref_DE, avEndF ~ group)
+kruskal.test(data = Ref_DE, NofClstrs ~ group)
 ```
 
 # Denmark
@@ -104,17 +104,17 @@ kruskal.test(data = Ref_DE, avEndF ~ group)
 ### Exploratory Analysis
 
 ```{r summarys DK}
-summary(Ref_DK_6621$avEndF)
-summary(Ref_DK_6623$avEndF)
-summary(Ref_DK_6625$avEndF)
+summary(Ref_DK_6621$NofClstrs)
+summary(Ref_DK_6623$NofClstrs)
+summary(Ref_DK_6625$NofClstrs)
 ```
 
 ###Visualization/Plots:
 
 ```{r histogram DK, echo=FALSE}
-ggplot(Ref_DK, aes(x = avEndF, fill = group)) +
+ggplot(Ref_DK, aes(x = NofClstrs, fill = group)) +
   geom_histogram(bins = 50, alpha = 0.5, position = "identity") +
-  labs(title = "Average of End Frequency Distribution", x = "Average End Frequency", y = "Count") +
+  labs(title = "number of clusters Distribution", x = "number of clusters", y = "Count") +
   scale_fill_manual(name = "Dataset", 
                     values = c('6621' = 'gold', 
                                '6623' = 'orange', 
@@ -123,9 +123,9 @@ ggplot(Ref_DK, aes(x = avEndF, fill = group)) +
 ```
 
 ```{r density plot DK, echo=FALSE}
-ggplot(Ref_DK, aes(x = avEndF, fill = group)) +
+ggplot(Ref_DK, aes(x = NofClstrs, fill = group)) +
   geom_density(bins = 50, alpha = 0.5, position = "identity") +
-  labs(title = "Average of End Frequency Distribution", x = "Avergae End Frequency", y = "Count") +
+  labs(title = "number of clusters Distribution", x = "number of clusters", y = "Count") +
   scale_fill_manual(name = "Dataset", 
                     values = c('6621' = 'gold', 
                                '6623' = 'orange', 
@@ -134,23 +134,23 @@ ggplot(Ref_DK, aes(x = avEndF, fill = group)) +
 ```
 
 ```{r boxplot DK, echo=FALSE}
-ggplot(Ref_DK, aes(x = group, y = avEndF, fill = group)) +
+ggplot(Ref_DK, aes(x = group, y = NofClstrs, fill = group)) +
   geom_boxplot() +
-  labs(title = "Boxplot of Average End Frequency", x = "Group", y = "Avergae End Frequency") +
+  labs(title = "Boxplot of number of clusters", x = "Group", y = "number of clusters") +
   theme_minimal()
 ```
 
 ```{r scatter plot DK, echo=FALSE}
-ggplot(Ref_DK, aes(x = group, y = avEndF, color = group)) +
+ggplot(Ref_DK, aes(x = group, y = NofClstrs, color = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
-  labs(title = "Scatter Plot of Average End Frequency", x = "Group", y = "Average End Frequency") +
+  labs(title = "Scatter Plot of number of clusters", x = "Group", y = "number of clusters") +
   theme_minimal()
 ```
 
 ### Statistical Test (Kruskal-Wallis)
 
 ```{r test DK, echo=FALSE}
-kruskal.test(data = Ref_DK, avEndF ~ group)
+kruskal.test(data = Ref_DK, NofClstrs ~ group)
 ```
 
 # Germany & Denmark
@@ -158,20 +158,20 @@ kruskal.test(data = Ref_DK, avEndF ~ group)
 ### Exploratory Analysis
 
 ```{r summarys DE/DK}
-summary(Ref_DE_Aschau$avEndF)
-summary(Ref_DE_BoEck$avEndF)
-summary(Ref_DE_Langholz$avEndF)
-summary(Ref_DK_6621$avEndF)
-summary(Ref_DK_6623$avEndF)
-summary(Ref_DK_6625$avEndF)
+summary(Ref_DE_Aschau$NofClstrs)
+summary(Ref_DE_BoEck$NofClstrs)
+summary(Ref_DE_Langholz$NofClstrs)
+summary(Ref_DK_6621$NofClstrs)
+summary(Ref_DK_6623$NofClstrs)
+summary(Ref_DK_6625$NofClstrs)
 ```
 
 ###Visualization/Plots:
 
 ```{r histogram DE/DK, echo=FALSE}
-ggplot(Ref_both, aes(x = avEndF, fill = group)) +
+ggplot(Ref_both, aes(x = NofClstrs, fill = group)) +
   geom_histogram(bins = 50, alpha = 0.5, position = "identity") +
-  labs(title = "Average of End Frequency Distribution", x = "Average End Frequency", y = "Count") +
+  labs(title = "number of clusters Distribution", x = "number of clusters", y = "Count") +
   scale_fill_manual(name = "Dataset", 
                     values = c('Aschau' = 'blue',
                                'BoEck' = 'green',
@@ -183,30 +183,30 @@ ggplot(Ref_both, aes(x = avEndF, fill = group)) +
 ```
 
 ```{r density plot2 DE/DK, echo=FALSE}
-ggplot(Ref_both, aes(x = avEndF, fill = group)) +
+ggplot(Ref_both, aes(x = NofClstrs, fill = group)) +
   geom_density(bins = 50, alpha = 0.5, position = "identity") +
-  labs(title = "Average of End Frequency Distribution", x = "Average End Frequency", y = "Count") +
+  labs(title = "number of clusters Distribution", x = "number of clusters", y = "Count") +
   theme_minimal()
 ```
 
 ```{r boxplot DE/DK, echo=FALSE}
-ggplot(Ref_both, aes(x = group, y = avEndF, fill = group)) +
+ggplot(Ref_both, aes(x = group, y = NofClstrs, fill = group)) +
   geom_boxplot() +
-  labs(title = "Boxplot of Average End Frequency", x = "Group", y = "Average End Frequency") +
+  labs(title = "Boxplot of number of clusters", x = "Group", y = "number of clusters") +
   theme_minimal()
 ```
 
 ```{r scatter plot DE/DK, echo=FALSE}
-ggplot(Ref_both, aes(x = group, y = avEndF, color = group)) +
+ggplot(Ref_both, aes(x = group, y = NofClstrs, color = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
-  labs(title = "Scatter Plot of Average End Frequency", x = "Group", y = "Average End Frequency") +
+  labs(title = "Scatter Plot of number of clusters", x = "Group", y = "number of clusters") +
   theme_minimal()
 ```
 
 ### Statistical Test (Kruskal-Wallis)
 
 ```{r test DE/DK, echo=FALSE}
-kruskal_result <- kruskal.test(data = Ref_both, avEndF ~ group)
+kruskal_result <- kruskal.test(data = Ref_both, NofClstrs ~ group)
 kruskal_result
 ```
 
@@ -224,12 +224,58 @@ Z <- sqrt(H)
 
 #indicates the proportion of total variability attributable to the factor. Values range from 0 to 1, with higher values indicating a larger effect.
 eta_squared <- (H - (k - 1)) / (N - 1)
-eta_squared #0.0679
+eta_squared #0.0018
 #Similar to eta-squared, but adjusted for the number of groups. It also ranges from 0 to 1
 #preferably small example sizes 
 epsilon_squared <- (H - k + 1) / (N - k)
-epsilon_squared #0.0679
+epsilon_squared #0.0018
 # Rank-biserial-Correlation: provides a straightforward way to understand the effect size in terms of the standard normal distribution. An effect size of r around 0.1 is considered small, around 0.3 is medium, and around 0.5 is large.
 r <- Z/sqrt(N)
-r #0.2606
+r #0.043
+```
+
+### Correlations
+```{r cor DE, echo=FALSE}
+par(mfrow = c(2,2))
+plot(Ref_DE$nActualClx,Ref_DE$NofClstrs)
+cor(Ref_DE$nActualClx,Ref_DE$NofClstrs, method = "spearman")
+
+plot(Ref_DE$medianKHz,Ref_DE$NofClstrs)
+cor(Ref_DE$medianKHz,Ref_DE$NofClstrs, method = "spearman")
+
+plot(Ref_DE$AvPRF,Ref_DE$NofClstrs)
+cor(Ref_DE$AvPRF,Ref_DE$NofClstrs, method = "spearman")
+
+plot(Ref_DE$MinICI_us,Ref_DE$NofClstrs)
+cor(Ref_DE$MinICI_us,Ref_DE$NofClstrs, method = "spearman")
+```
+
+```{r cor DK, echo=FALSE}
+par(mfrow = c(2,2))
+plot(Ref_DK$nActualClx,Ref_DK$NofClstrs)
+cor(Ref_DK$nActualClx,Ref_DK$NofClstrs, method = "spearman")
+
+plot(Ref_DK$medianKHz,Ref_DK$NofClstrs)
+cor(Ref_DK$medianKHz,Ref_DK$NofClstrs, method = "spearman")
+
+plot(Ref_DK$AvPRF,Ref_DK$NofClstrs)
+cor(Ref_DK$AvPRF,Ref_DK$NofClstrs, method = "spearman")
+
+plot(Ref_DK$MinICI_us,Ref_DK$NofClstrs)
+cor(Ref_DK$MinICI_us,Ref_DK$NofClstrs, method = "spearman")
+```
+
+```{r cor DE/DK, echo=FALSE}
+par(mfrow = c(2,2))
+plot(Ref_both$nActualClx,Ref_both$NofClstrs)
+cor(Ref_both$nActualClx,Ref_both$NofClstrs, method = "spearman")
+
+plot(Ref_both$medianKHz,Ref_both$NofClstrs)
+cor(Ref_both$medianKHz,Ref_both$NofClstrs, method = "spearman")
+
+plot(Ref_both$AvPRF,Ref_both$NofClstrs)
+cor(Ref_both$AvPRF,Ref_both$NofClstrs, method = "spearman")
+
+plot(Ref_both$MinICI_us,Ref_both$NofClstrs)
+cor(Ref_both$MinICI_us,Ref_both$NofClstrs, method = "spearman")
 ```

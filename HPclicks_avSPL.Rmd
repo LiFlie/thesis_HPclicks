@@ -207,7 +207,10 @@ ggplot(Ref_both, aes(x = group, y = avSPL, color = group)) +
 
 ```{r test DE/DK, echo=FALSE}
 kruskal_result <- kruskal.test(data = Ref_both, avSPL ~ group)
+kruskal_result
 ```
+
+### Effect Size Calculation (Eta/Epsilon-Squared/Rank-Biserial)
 
 ```{r effect DE/DK, echo=FALSE}
 H <- kruskal_result$statistic
