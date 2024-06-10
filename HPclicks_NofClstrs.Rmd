@@ -96,9 +96,29 @@ ggplot(Ref_DE, aes(x = group, y = NofClstrs, color = group)) +
 ### Statistical Test (Kruskal-Wallis)
 
 ```{r test DE, echo=FALSE}
-kruskal.test(data = Ref_DE, NofClstrs ~ group)
+kruskal_resultDE <- kruskal.test(data = Ref_DE, NofClstrs ~ group)
+kruskal_resultDE
 ```
 
+### Effect Size Calculation (Eta-Squared/Rank-Biserial)
+
+```{r effect DE, echo=FALSE}
+H <- kruskal_resultDE$statistic
+# Extract the p-value (if needed for reporting)
+p_value <- kruskal_resultDE$p.value
+# Calculate the number of groups
+k <- length(unique(Ref_DE$group))
+# Calculate the total number of observations
+N <- nrow(Ref_DE)
+Z <- sqrt(H)
+
+#indicates the proportion of total variability attributable to the factor. Values range from 0 to 1, with higher values indicating a larger effect.
+eta_squared <- (H - (k - 1)) / (N - 1)
+eta_squared #0.0018
+# Rank-biserial-Correlation: provides a straightforward way to understand the effect size in terms of the standard normal distribution. An effect size of r around 0.1 is considered small, around 0.3 is medium, and around 0.5 is large.
+r <- Z/sqrt(N)
+r #0.043
+```
 # Denmark
 
 ### Exploratory Analysis
@@ -150,8 +170,30 @@ ggplot(Ref_DK, aes(x = group, y = NofClstrs, color = group)) +
 ### Statistical Test (Kruskal-Wallis)
 
 ```{r test DK, echo=FALSE}
-kruskal.test(data = Ref_DK, NofClstrs ~ group)
+kruskal_resultDK <- kruskal.test(data = Ref_DK, NofClstrs ~ group)
+kruskal_resultDK
 ```
+
+### Effect Size Calculation (Eta-Squared/Rank-Biserial)
+
+```{r effect DK, echo=FALSE}
+H <- kruskal_resultDK$statistic
+# Extract the p-value (if needed for reporting)
+p_value <- kruskal_resultDK$p.value
+# Calculate the number of groups
+k <- length(unique(Ref_DK$group))
+# Calculate the total number of observations
+N <- nrow(Ref_DK)
+Z <- sqrt(H)
+
+#indicates the proportion of total variability attributable to the factor. Values range from 0 to 1, with higher values indicating a larger effect.
+eta_squared <- (H - (k - 1)) / (N - 1)
+eta_squared #0.0018
+# Rank-biserial-Correlation: provides a straightforward way to understand the effect size in terms of the standard normal distribution. An effect size of r around 0.1 is considered small, around 0.3 is medium, and around 0.5 is large.
+r <- Z/sqrt(N)
+r #0.043
+```
+
 
 # Germany & Denmark
 
@@ -210,7 +252,7 @@ kruskal_result <- kruskal.test(data = Ref_both, NofClstrs ~ group)
 kruskal_result
 ```
 
-### Effect Size Calculation (Eta/Epsilon-Squared/Rank-Biserial)
+### Effect Size Calculation (Eta-Squared/Rank-Biserial)
 
 ```{r effect DE/DK, echo=FALSE}
 H <- kruskal_result$statistic
@@ -225,57 +267,7 @@ Z <- sqrt(H)
 #indicates the proportion of total variability attributable to the factor. Values range from 0 to 1, with higher values indicating a larger effect.
 eta_squared <- (H - (k - 1)) / (N - 1)
 eta_squared #0.0018
-#Similar to eta-squared, but adjusted for the number of groups. It also ranges from 0 to 1
-#preferably small example sizes 
-epsilon_squared <- (H - k + 1) / (N - k)
-epsilon_squared #0.0018
 # Rank-biserial-Correlation: provides a straightforward way to understand the effect size in terms of the standard normal distribution. An effect size of r around 0.1 is considered small, around 0.3 is medium, and around 0.5 is large.
 r <- Z/sqrt(N)
 r #0.043
-```
-
-### Correlations
-```{r cor DE, echo=FALSE}
-par(mfrow = c(2,2))
-plot(Ref_DE$nActualClx,Ref_DE$NofClstrs)
-cor(Ref_DE$nActualClx,Ref_DE$NofClstrs, method = "spearman")
-
-plot(Ref_DE$medianKHz,Ref_DE$NofClstrs)
-cor(Ref_DE$medianKHz,Ref_DE$NofClstrs, method = "spearman")
-
-plot(Ref_DE$AvPRF,Ref_DE$NofClstrs)
-cor(Ref_DE$AvPRF,Ref_DE$NofClstrs, method = "spearman")
-
-plot(Ref_DE$MinICI_us,Ref_DE$NofClstrs)
-cor(Ref_DE$MinICI_us,Ref_DE$NofClstrs, method = "spearman")
-```
-
-```{r cor DK, echo=FALSE}
-par(mfrow = c(2,2))
-plot(Ref_DK$nActualClx,Ref_DK$NofClstrs)
-cor(Ref_DK$nActualClx,Ref_DK$NofClstrs, method = "spearman")
-
-plot(Ref_DK$medianKHz,Ref_DK$NofClstrs)
-cor(Ref_DK$medianKHz,Ref_DK$NofClstrs, method = "spearman")
-
-plot(Ref_DK$AvPRF,Ref_DK$NofClstrs)
-cor(Ref_DK$AvPRF,Ref_DK$NofClstrs, method = "spearman")
-
-plot(Ref_DK$MinICI_us,Ref_DK$NofClstrs)
-cor(Ref_DK$MinICI_us,Ref_DK$NofClstrs, method = "spearman")
-```
-
-```{r cor DE/DK, echo=FALSE}
-par(mfrow = c(2,2))
-plot(Ref_both$nActualClx,Ref_both$NofClstrs)
-cor(Ref_both$nActualClx,Ref_both$NofClstrs, method = "spearman")
-
-plot(Ref_both$medianKHz,Ref_both$NofClstrs)
-cor(Ref_both$medianKHz,Ref_both$NofClstrs, method = "spearman")
-
-plot(Ref_both$AvPRF,Ref_both$NofClstrs)
-cor(Ref_both$AvPRF,Ref_both$NofClstrs, method = "spearman")
-
-plot(Ref_both$MinICI_us,Ref_both$NofClstrs)
-cor(Ref_both$MinICI_us,Ref_both$NofClstrs, method = "spearman")
 ```

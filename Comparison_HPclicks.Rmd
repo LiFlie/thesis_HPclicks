@@ -435,12 +435,55 @@ p (<2.2e-16) < 0.05 <br>
 --> there is a significant difference between the datasets for the average Train Duration <br>
 Null Hypothesis rejected.
 
+### Statistical Tests, pairwise (Mann-Whitney)
+
+```{r wilcox DE, echo=FALSE}
+wilcox.test(Ref_DE$MinICI_us, Ref_DE$medianKHz)
+wilcox.test(Ref_DE$MinICI_us, Ref_DE$NofClstrs)
+wilcox.test(Ref_DE$MinICI_us, Ref_DE$nActualClx)
+wilcox.test(Ref_DE$MinICI_us, Ref_DE$AvPRF)
+wilcox.test(Ref_DE$NofClstrs, Ref_DE$medianKHz)
+wilcox.test(Ref_DE$nActualClx, Ref_DE$medianKHz)
+wilcox.test(Ref_DE$AvPRF, Ref_DE$medianKHz)
+wilcox.test(Ref_DE$NofClstrs, Ref_DE$nActualClx)
+wilcox.test(Ref_DE$NofClstrs, Ref_DE$AvPRF)
+wilcox.test(Ref_DE$nActualClx, Ref_DE$AvPRF)
+```
+```{r wilcox DK, echo=FALSE}
+wilcox.test(Ref_DK$MinICI_us, Ref_DK$medianKHz)
+wilcox.test(Ref_DK$MinICI_us, Ref_DK$NofClstrs)
+wilcox.test(Ref_DK$MinICI_us, Ref_DK$nActualClx)
+wilcox.test(Ref_DK$MinICI_us, Ref_DK$AvPRF)
+wilcox.test(Ref_DK$NofClstrs, Ref_DK$medianKHz)
+wilcox.test(Ref_DK$nActualClx, Ref_DK$medianKHz)
+wilcox.test(Ref_DK$AvPRF, Ref_DK$medianKHz)
+wilcox.test(Ref_DK$NofClstrs, Ref_DK$nActualClx)
+wilcox.test(Ref_DK$NofClstrs, Ref_DK$AvPRF)
+wilcox.test(Ref_DK$nActualClx, Ref_DK$AvPRF)
+```
+
 ### Correlations
 
 ```{r cor, echo=FALSE}
 pairs.panels(Ref_both[, c("MinICI_us", "medianKHz", "NofClstrs", "AvPRF", "nActualClx")], 
              method = "spearman", # Use Spearman correlation
              hist.col = "blue",   # Color of histograms
+             density = TRUE,      # Add density plots
+             ellipses = TRUE)     # Add correlation ellipses
+```
+
+```{r cor DE, echo=FALSE}
+pairs.panels(Ref_DE[, c("MinICI_us", "medianKHz", "NofClstrs", "AvPRF", "nActualClx")], 
+             method = "spearman", # Use Spearman correlation
+             hist.col = "green",   # Color of histograms
+             density = TRUE,      # Add density plots
+             ellipses = TRUE)     # Add correlation ellipses
+```
+
+```{r cor DK, echo=FALSE}
+pairs.panels(Ref_DK[, c("MinICI_us", "medianKHz", "NofClstrs", "AvPRF", "nActualClx")], 
+             method = "spearman", # Use Spearman correlation
+             hist.col = "orange",   # Color of histograms
              density = TRUE,      # Add density plots
              ellipses = TRUE)     # Add correlation ellipses
 ```
