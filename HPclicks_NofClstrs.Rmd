@@ -12,12 +12,13 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```{r librarys, echo=FALSE}
 library(readxl)
 library(ggplot2)
+library(dplyr)
 ```
 
 ```{r data DE, echo=FALSE}
 Ref_DE_Aschau <- read_excel("AS_78 2023 02 28 FPOD_6889_train_details_filtered.xlsx")
 Ref_DE_BoEck <- read_excel("BoEck 2023 02 07 FPOD_6877_train_details.xlsx")
-Ref_DE_Langholz <- read_excel("LA_77 2023 02 28 FPOD_6888_train_details_filtered.xlsx")
+Ref_DE_Langholz <- mutate(read_excel("LA_6888_ref23_traindetails_filtered_240617.xlsx"), Country = "DE", Std = "LA")
 #bind all dataframes from german ref stations
 Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
 ```
