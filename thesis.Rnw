@@ -1,0 +1,93 @@
+\documentclass[english, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Improved font encoding
+\usepackage[english]{babel} % Language support
+\usepackage{csquotes}
+\usepackage[backend=biber,style=alphabetic]{biblatex} % Corrected syntax
+\addbibresource{bibliography.bib}
+\usepackage{caption}
+
+\title{Bachelor Thesis}
+\author{Lina Fließ}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+%\setcounter{secnumdepth}{0}
+
+\tableofcontents \newpage
+
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures\newpage
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables\newpage
+\addcontentsline{toc}{section}{Abbreviations}
+\section*{Abbreviations}
+
+\section{Summary/Abstract}
+
+\section{Introduction}
+harbour porpoises (Phocoena phocoena) as an endangered species, affected by fisheries and often being bycatch
+use of PAL to reduces bycatch effectively --> short explanation how PAL works
+
+\subsection{Objective of the Work/Motivation}
+Aim: determine whether harbour porpoise show significant differences in their echolocation behaviour around nets between germany and denmark
+
+\section{First Information (Theory)}
+mammals in germany have been exposd to PALS (explain somewhere??) since 2017
+
+\subsection{Harbour Porpoises, Echolocation}
+harbour porpoise (Phocoena phocoena) s a marine mammal in the Phocoenidae family, members of the toothed whale family
+prefer coastal, shallow waters
+IUCN red list status: baltic sea population is citically endangered
+bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{brennecke2023marine}
+\section{Material and Methods}
+
+
+\subsection{Area of Research}
+The used Data was obtained in Germany and Denmark. Three reference points of Observation in each country with three obersavtion periods
+Map of area with postioned FPODS: 
+
+Eight fishers selected to use PAL.
+
+\subsection{PAM/Acoustic Monitoring}
+observation method where acoustic device is deployed in ocean to capture sounds from surrounding environment, doesn't produce sound itself 
+
+
+\subsection{FPODs, Software/Data Processing}
+What they are and where they've been used, use of click trains.
+Setup FPOD and PAL?
+fully automatic, static, passive monitoring systems,  limited spatial coverage, continously collect data for months
+detection of echolocation clicks and click trains of porpoises, dolphins and other toothed whales
+logs different parameters of narrow-band high-frequency clicks, like time, duration, frequency, sound pressure etc.
+The KERNO CLassifier of the FPOD.exe software combines individual clicks into click trains which have their own characteristics (time, duration, frequeny, sound pressure, inter-click-interval etc.)
+list of all parameters that are obtained for clicks and click trains:
+
+\subsection{Software, Data Processing}
+Use of software R, packages, statistical tests, hypothesis, significance of parameters: Wilcoxon-Mann-Whitney/Kruskal-Wallis (more than two datasets), effect-size calculation: eta-squared 
+
+\subsection{Statistical Analysis}
+\subsection{Random Forest}
+\subsection{Machine Learning}
+
+\section{Results}
+\subsection{Comparison Data De/Dk}
+\subsection{Random Forest}
+\subsection{Classifier}
+
+\section{Discussion}
+\subsection{}
+\subsection{}
+
+\section{Bibliography/References}
+\printbibliography
+
+\section{Acknowledgements}
+
+\section{Affidavit}
+
+\section{Appendix}
+
+\end{document}
