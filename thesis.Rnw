@@ -43,6 +43,7 @@ harbour porpoise (Phocoena phocoena) s a marine mammal in the Phocoenidae family
 prefer coastal, shallow waters
 IUCN red list status: baltic sea population is citically endangered
 bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{brennecke2023marine}
+The harbor porpoises in the Baltic Sea that are native to us can be divided into two populations: those in the Belt Sea (west of Rügen to the Kattegat) and those in the central Baltic Sea (east of Rügen). %deutsches-meeeresmuseum
 \section{Material and Methods}
 
 
