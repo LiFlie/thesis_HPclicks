@@ -1,14 +1,3 @@
----
-title: "Imortant Plots"
-author: "Lina Fliess"
-date: "`r Sys.Date()`"
-output: html_document
----
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
-```
-
-```{r librarys, echo=FALSE}
 library(readxl)
 library(ggplot2)
 library(car)
@@ -16,141 +5,88 @@ library(psych)
 library(patchwork)
 library(dplyr)
 library(cowplot)
+
+```{r data, echo=FALSE}
+Ref_DE_all <- read_excel("DE_ref_all_75thr.xlsx")
+Ref_DK_all <- read_excel("DK_ref_all_seas_75thr.xlsx")
 ```
-
-
-```{r data DE, echo=FALSE}
-Ref_DE_Aschau <- read_excel("AS_78 2023 02 28 FPOD_6889_train_details_filtered.xlsx")
-Ref_DE_BoEck <- read_excel("BoEck 2023 02 07 FPOD_6877_train_details.xlsx")
-Ref_DE_Langholz <- mutate(read_excel("LA_6888_ref23_traindetails_filtered_240617.xlsx"), Country = "DE", Std = "LA")
-#bind all dataframes from german ref stations
-Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
-```
-
-```{r data DK, echo=FALSE}     
-Ref_DK_6621 <- read_excel("2023 02 21 FPOD_6621 file0_train_details.xlsx")
-Ref_DK_6623 <- read_excel("2023 02 21  2023 02 21 FPOD_6623 file0 train details.xlsx")
-Ref_DK_6625 <- read_excel("20230221 2023 02 21 FPOD_6625 file0 train details.xlsx")
-#bind all dataframes from danish ref stations
-Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
-```
-
 
 ```{r groups, echo=FALSE} 
+Ref_DE_Aschau <- subset(Ref_DE_all[Ref_DE_all$Std == "AS", ], select = -Season)
 Ref_DE_Aschau$group <- 'Aschau'
+Ref_DE_BoEck <- subset(Ref_DE_all[Ref_DE_all$Std == "BoEck", ], select = -Season) #only spring 23
 Ref_DE_BoEck$group <- 'BoEck'
+Ref_DE_Langholz <- subset(Ref_DE_all[Ref_DE_all$Std == "LA", ], select = -Season)
 Ref_DE_Langholz$group <- 'Langholz'
-Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
+Ref_DK_6621 <- Ref_DK_all[Ref_DK_all$Std == "Palle1", ]
 Ref_DK_6621$group <- '6621'
+Ref_DK_6623 <- Ref_DK_all[Ref_DK_all$Std == "Palle2", ]
 Ref_DK_6623$group <- '6623'
+Ref_DK_6625 <- Ref_DK_all[Ref_DK_all$Std == "Palle3", ]
 Ref_DK_6625$group <- '6625'
-Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
-Ref_both <- rbind(Ref_DE,Ref_DK)
-```
+Ref_DE_all <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
+Ref_DK_all <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
+Ref_both <- rbind(Ref_DE_all,Ref_DK_all)
 
 ## Correlation of Parameters
 
-```{r cor, echo=FALSE}
 pairs.panels(Ref_both[, c("MinICI_us", "medianKHz", "NofClstrs", "AvPRF", "nActualClx")], 
              method = "spearman", # Use Spearman correlation
              hist.col = "blue",   # Color of histograms
              density = TRUE,      # Add density plots
              ellipses = TRUE)     # Add correlation ellipses
-```
 
-## Combined Plots
+## Combined Plots, Comparing German vs. Denmark looking at differnet parameters and all reference stations
 
-```{r cor DE, echo=FALSE}
-# Define the base plot without legends
-base_plot <- ggplot(Ref_DE, aes(fill = group)) +
-  scale_fill_manual(name = "Dataset", 
-                    values = c('Aschau' = 'blue',
-                               'BoEck' = 'green',
-                               'Langholz' = 'darkcyan')) +
-  theme(legend.position = "bottom")
-
-# Define each plot
-p1 <- base_plot + geom_density(aes(x = MinICI_us), alpha = 0.5) +
-  labs(x = "Shortest ICI", y = "Count") +
-  theme(legend.position = "none")
-
-p2 <- base_plot + geom_density(aes(x = medianKHz), alpha = 1) +
-  labs(x = "Mean Frequency", y = "Count") +
-  theme(legend.position = "none")
-
-p3 <- base_plot + geom_density(aes(x = NofClstrs), alpha = 1) +
-  labs(x = "Number of Clusters", y = "Count") +
-  theme(legend.position = "none")
-
-p4 <- base_plot + geom_density(aes(x = nActualClx), alpha = 1) +
-  labs(x = "Number of Actual Clicks", y = "Count") +
-  theme(legend.position = "none")
-
-p5 <- base_plot + geom_density(aes(x = AvPRF), alpha = 1) +
-  labs(x = "Reciprocal of ICI", y = "Count") +
-  theme(legend.position = "none")
-
-legend <- get_legend(base_plot + geom_density(aes(x = MinICI_us), alpha = 0.5))
-
-# Combine all plots into one layout and add the legend
-combined_plot <- (p1 | p2 | p3) / (p4 | p5) + plot_layout(guides = 'collect')
-
-# Add the legend separately below the combined plot
-final_plot <- plot_grid(combined_plot, legend, ncol = 1, rel_heights = c(1, 0.1))
-
-# Print the final plot
-print(final_plot)
-```
-
-```{r comparison MinICI, echo=FALSE}
-p1 <- ggplot(Ref_DE, aes(x = MinICI_us, fill = group)) +
+#Comparison of shortest Interclick interval
+p1 <- ggplot(Ref_DE_all, aes(x = MinICI_us, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
 
-p2 <- ggplot(Ref_DK, aes(x = MinICI_us, fill = group)) +
+p2 <- ggplot(Ref_DE_all, aes(x = MinICI_us, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
-  
-p3 <- ggplot(Ref_DE, aes(x = group, y = MinICI_us, colour = group)) +
+
+p3 <- ggplot(Ref_DE_all, aes(x = group, y = MinICI_us, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   ylim(0,200000) +
   labs(title = "Shortest ICI", x = "Group", y = "Shortest ICI") +
   theme(legend.position = "none")
 
-p4 <- ggplot(Ref_DK, aes(x = group, y = MinICI_us, colour = group)) +
+p4 <- ggplot(Ref_DK_all, aes(x = group, y = MinICI_us, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
-   ylim(0,200000) +
+  ylim(0,200000) +
   labs(title = "Shortest ICI", x = "Group", y = "Shortest ICI") +
   theme(legend.position = "none")
 
 final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.1, 0.1))
-
+#removed rows containing non-finite values --> where??
 print(final_plot)
-```
 
-```{r comparison nActualClx, echo=FALSE}
-p1 <- ggplot(Ref_DE, aes(x = nActualClx, fill = group)) +
+
+#comparison between number of actual clicks
+p1 <- ggplot(Ref_DE_all, aes(x = nActualClx, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,100) +
   labs(title = "Number of Actual Clicks", x = "Number of Actual Clicks", y = "Density") +
   theme(legend.position = "bottom")
 
-p2 <- ggplot(Ref_DK, aes(x = nActualClx, fill = group)) +
+p2 <- ggplot(Ref_DK_all, aes(x = nActualClx, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,100) +
   labs(title = "Number of Actual Clicks", x = "Number of Actual Clicks", y = "Density") +
   theme(legend.position = "bottom")
-  
-p3 <- ggplot(Ref_DE, aes(x = group, y = nActualClx, colour = group)) +
+
+p3 <- ggplot(Ref_DE_all, aes(x = group, y = nActualClx, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "Number of Actual Clicks", x = "Group", y = "Number of Actual Clicks") +
   theme(legend.position = "none")
 
-p4 <- ggplot(Ref_DK, aes(x = group, y = nActualClx, colour = group)) +
+p4 <- ggplot(Ref_DK_all, aes(x = group, y = nActualClx, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "Number of Actual Clicks", x = "Group", y = "Number of Actual Clicks") +
   theme(legend.position = "none")
@@ -158,25 +94,24 @@ p4 <- ggplot(Ref_DK, aes(x = group, y = nActualClx, colour = group)) +
 final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.1, 0.1))
 
 print(final_plot)
-```
 
-```{r comparison medKHz, echo=FALSE}
-p1 <- ggplot(Ref_DE, aes(x = medianKHz, fill = group)) +
+#comparison of median frequence of whole train
+p1 <- ggplot(Ref_DE_all, aes(x = medianKHz, fill = group)) +
   geom_density(alpha = 0.5) +
   labs(title = "median Frequency of whole Train", x = "median KHz", y = "Density") +
   theme(legend.position = "bottom")
 
-p2 <- ggplot(Ref_DK, aes(x = medianKHz, fill = group)) +
+p2 <- ggplot(Ref_DK_all, aes(x = medianKHz, fill = group)) +
   geom_density(alpha = 0.5) +
   labs(title = "median Frequency of whole Train", x = "median KHz", y = "Density") +
   theme(legend.position = "bottom")
-  
-p3 <- ggplot(Ref_DE, aes(x = group, y = medianKHz, colour = group)) +
+
+p3 <- ggplot(Ref_DE_all, aes(x = group, y = medianKHz, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "median Frequency of whole Train", x = "Group", y = "median KHz") +
   theme(legend.position = "none")
 
-p4 <- ggplot(Ref_DK, aes(x = group, y = medianKHz, colour = group)) +
+p4 <- ggplot(Ref_DK_all, aes(x = group, y = medianKHz, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "median Frequency of whole Train", x = "Group", y = "median KHz") +
   theme(legend.position = "none")
@@ -184,27 +119,26 @@ p4 <- ggplot(Ref_DK, aes(x = group, y = medianKHz, colour = group)) +
 final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.1, 0.1))
 
 print(final_plot)
-```
 
-```{r comparison AvPRF, echo=FALSE}
-p1 <- ggplot(Ref_DE, aes(x = AvPRF, fill = group)) +
+#comparison of reciprocal of mean interclick intervals
+p1 <- ggplot(Ref_DE_all, aes(x = AvPRF, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,150) +
   labs(title = "Reciprocal of mean Interclick intervals", x = "AvPRF", y = "Density") +
   theme(legend.position = "bottom")
 
-p2 <- ggplot(Ref_DK, aes(x = AvPRF, fill = group)) +
+p2 <- ggplot(Ref_DK_all, aes(x = AvPRF, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,150) +
   labs(title = "Reciprocal of mean Interclick intervals", x = "AvPRF", y = "Density") +
   theme(legend.position = "bottom")
-  
-p3 <- ggplot(Ref_DE, aes(x = group, y = AvPRF, colour = group)) +
+
+p3 <- ggplot(Ref_DE_all, aes(x = group, y = AvPRF, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "Reciprocal of mean Interclick intervals", x = "Group", y = "AvPRF") +
   theme(legend.position = "none")
 
-p4 <- ggplot(Ref_DK, aes(x = group, y = AvPRF, colour = group)) +
+p4 <- ggplot(Ref_DK_all, aes(x = group, y = AvPRF, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "Reciprocal of mean Interclick intervals", x = "Group", y = "AvPRF") +
   theme(legend.position = "none")
@@ -212,27 +146,26 @@ p4 <- ggplot(Ref_DK, aes(x = group, y = AvPRF, colour = group)) +
 final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.1, 0.1))
 
 print(final_plot)
-```
 
-```{r comparison NofClstrs, echo=FALSE}
-p1 <- ggplot(Ref_DE, aes(x = NofClstrs, fill = group)) +
+#comparison number of clusters
+p1 <- ggplot(Ref_DE_all, aes(x = NofClstrs, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,60) +
   labs(title = "Number of train clicks with cluster", x = "NofClstrs", y = "Density") +
   theme(legend.position = "bottom")
 
-p2 <- ggplot(Ref_DK, aes(x = NofClstrs, fill = group)) +
+p2 <- ggplot(Ref_DK_all, aes(x = NofClstrs, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,60) +
   labs(title = "Number of train clicks with cluster", x = "NofClstrs", y = "Density") +
   theme(legend.position = "bottom")
-  
-p3 <- ggplot(Ref_DE, aes(x = group, y = NofClstrs, colour = group)) +
+
+p3 <- ggplot(Ref_DE_all, aes(x = group, y = NofClstrs, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "Number of train clicks with cluster", x = "Group", y = "NofClstrs") +
   theme(legend.position = "none")
 
-p4 <- ggplot(Ref_DK, aes(x = group, y = NofClstrs, colour = group)) +
+p4 <- ggplot(Ref_DK_all, aes(x = group, y = NofClstrs, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
   labs(title = "Number of train clicks with cluster", x = "Group", y = "NofClstrs") +
   theme(legend.position = "none")
@@ -240,4 +173,3 @@ p4 <- ggplot(Ref_DK, aes(x = group, y = NofClstrs, colour = group)) +
 final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.1, 0.1))
 
 print(final_plot)
-```
