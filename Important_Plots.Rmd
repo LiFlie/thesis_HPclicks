@@ -123,11 +123,23 @@ p3 <- ggplot(Ref_DE, aes(x = group, y = MinICI_us, colour = group)) +
 
 p4 <- ggplot(Ref_DK, aes(x = group, y = MinICI_us, colour = group)) +
   geom_jitter(width = 0.2, alpha = 0.5) +
-   ylim(0,200000) +
+  ylim(0,200000) +
   labs(title = "Shortest ICI", x = "Group", y = "Shortest ICI") +
   theme(legend.position = "none")
 
-final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.1, 0.1))
+p5 <- ggplot(Ref_DE, aes(x = group, y = MinICI_us, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0,50000) +
+  labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
+  theme(legend.position = "bottom")
+
+p6 <- ggplot(Ref_DK, aes(x = group, y = MinICI_us, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0,50000) +
+  labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
+  theme(legend.position = "bottom")
+
+final_plot <- plot_grid(p1, p2, p3 p4, ncol = 2)
 
 print(final_plot)
 ```
