@@ -46,6 +46,13 @@ Ref_DK_6623$group <- '6623'
 Ref_DK_6625$group <- '6625'
 Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
 Ref_both <- rbind(Ref_DE,Ref_DK)
+head(Ref_both)
+```
+
+```{r parameters, echo=FALSE}
+Ref_both_reduced <- Ref_both[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
+Ref_DE_reduced <- Ref_DE[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
+Ref_DK_reduced <- Ref_DK[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
 ```
 
 ## Correlation of Parameters
@@ -60,86 +67,44 @@ pairs.panels(Ref_both[, c("MinICI_us", "medianKHz", "NofClstrs", "AvPRF", "nActu
 
 ## Combined Plots
 
-```{r cor DE, echo=FALSE}
-# Define the base plot without legends
-base_plot <- ggplot(Ref_DE, aes(fill = group)) +
-  scale_fill_manual(name = "Dataset", 
-                    values = c('Aschau' = 'blue',
-                               'BoEck' = 'green',
-                               'Langholz' = 'darkcyan')) +
-  theme(legend.position = "bottom")
-
-# Define each plot
-p1 <- base_plot + geom_density(aes(x = MinICI_us), alpha = 0.5) +
-  labs(x = "Shortest ICI", y = "Count") +
-  theme(legend.position = "none")
-
-p2 <- base_plot + geom_density(aes(x = medianKHz), alpha = 1) +
-  labs(x = "Mean Frequency", y = "Count") +
-  theme(legend.position = "none")
-
-p3 <- base_plot + geom_density(aes(x = NofClstrs), alpha = 1) +
-  labs(x = "Number of Clusters", y = "Count") +
-  theme(legend.position = "none")
-
-p4 <- base_plot + geom_density(aes(x = nActualClx), alpha = 1) +
-  labs(x = "Number of Actual Clicks", y = "Count") +
-  theme(legend.position = "none")
-
-p5 <- base_plot + geom_density(aes(x = AvPRF), alpha = 1) +
-  labs(x = "Reciprocal of ICI", y = "Count") +
-  theme(legend.position = "none")
-
-legend <- get_legend(base_plot + geom_density(aes(x = MinICI_us), alpha = 0.5))
-
-# Combine all plots into one layout and add the legend
-combined_plot <- (p1 | p2 | p3) / (p4 | p5) + plot_layout(guides = 'collect')
-
-# Add the legend separately below the combined plot
-final_plot <- plot_grid(combined_plot, legend, ncol = 1, rel_heights = c(1, 0.1))
-
-# Print the final plot
-print(final_plot)
-```
-
 ```{r comparison MinICI, echo=FALSE}
 p1 <- ggplot(Ref_DE, aes(x = MinICI_us, fill = group)) +
-  geom_density(alpha = 0.5) +
+  geom_density(alpha = 0.2) +
   xlim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
 
 p2 <- ggplot(Ref_DK, aes(x = MinICI_us, fill = group)) +
-  geom_density(alpha = 0.5) +
+  geom_density(alpha = 0.2) +
   xlim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
   
 p3 <- ggplot(Ref_DE, aes(x = group, y = MinICI_us, colour = group)) +
-  geom_jitter(width = 0.2, alpha = 0.5) +
+  geom_jitter(width = 0.4, alpha = 0.2) +
   ylim(0,200000) +
   labs(title = "Shortest ICI", x = "Group", y = "Shortest ICI") +
   theme(legend.position = "none")
 
 p4 <- ggplot(Ref_DK, aes(x = group, y = MinICI_us, colour = group)) +
-  geom_jitter(width = 0.2, alpha = 0.5) +
+  geom_jitter(width = 0.4, alpha = 0.2) +
   ylim(0,200000) +
   labs(title = "Shortest ICI", x = "Group", y = "Shortest ICI") +
   theme(legend.position = "none")
 
 p5 <- ggplot(Ref_DE, aes(x = group, y = MinICI_us, fill = group)) +
-  geom_boxplot(alpha = 0.5) +
+  geom_boxplot(alpha = 0.2) +
   ylim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
 
 p6 <- ggplot(Ref_DK, aes(x = group, y = MinICI_us, fill = group)) +
-  geom_boxplot(alpha = 0.5) +
+  geom_boxplot(alpha = 0.2) +
   ylim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
 
-final_plot <- plot_grid(p1, p2, p3 p4, ncol = 2)
+final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2)
 
 print(final_plot)
 ```
