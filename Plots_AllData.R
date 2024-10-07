@@ -6,12 +6,9 @@ library(patchwork)
 library(dplyr)
 library(cowplot)
 
-```{r data, echo=FALSE}
 Ref_DE_all <- read_excel("DE_ref_all_75thr.xlsx")
 Ref_DK_all <- read_excel("DK_ref_all_seas_75thr.xlsx")
-```
 
-```{r groups, echo=FALSE} 
 Ref_DE_Aschau <- subset(Ref_DE_all[Ref_DE_all$Std == "AS", ], select = -Season)
 Ref_DE_Aschau$group <- 'Aschau'
 Ref_DE_BoEck <- subset(Ref_DE_all[Ref_DE_all$Std == "BoEck", ], select = -Season) #only spring 23
@@ -45,7 +42,7 @@ p1 <- ggplot(Ref_DE_all, aes(x = MinICI_us, fill = group)) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +
   theme(legend.position = "bottom")
 
-p2 <- ggplot(Ref_DE_all, aes(x = MinICI_us, fill = group)) +
+p2 <- ggplot(Ref_DK_all, aes(x = MinICI_us, fill = group)) +
   geom_density(alpha = 0.5) +
   xlim(0,50000) +
   labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") +

@@ -33,28 +33,44 @@ harbour porpoises (Phocoena phocoena) as an endangered species, affected by fish
 use of PAL to reduces bycatch effectively --> short explanation how PAL works
 
 \subsection{Objective of the Work/Motivation}
-Aim: determine whether harbour porpoise show significant differences in their echolocation behaviour around nets between germany and denmark
+Aim: determine whether harbour porpoise show significant differences in their echolocation behavior around nets between germany and denmark
 
 \section{First Information (Theory)}
 mammals in germany have been exposd to PALS (explain somewhere??) since 2017
 
 \subsection{Harbour Porpoises, Echolocation}
-harbour porpoise (Phocoena phocoena) s a marine mammal in the Phocoenidae family, members of the toothed whale family
+harbour porpoise (Phocoena phocoena) is a marine mammal in the Phocoenidae family, members of the toothed whale family
 prefer coastal, shallow waters
 IUCN red list status: baltic sea population is citically endangered
 bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{brennecke2023marine}
 The harbor porpoises in the Baltic Sea that are native to us can be divided into two populations: those in the Belt Sea (west of Rügen to the Kattegat) and those in the central Baltic Sea (east of Rügen). %deutsches-meeeresmuseum
+
+\subsection{PAM/Acoustic Monitoring, PALs}
+observation method where acoustic device is deployed in ocean to capture sounds from surrounding environment, doesn't produce sound itself 
+
+explanation of PAL:
+PAL is a spindle-shaped acoustic transducer optimized for use in fisheries. It emits a single
+synthetic signal termed “F3” (Culik et al. 2015) consisting of two upsweep chirps beginning
+with a click rate of 173 clicks/s and ending with 959 clicks/s. PAL has a centroid frequency
+of 133 ± 8.5 kHz; mean source level 147 dB peak – peak re 1 %μ Pa@1 m (± 5 dB Standard
+Deviation; n = 36 measurements in 10 ◦ around the longitudinal axis, and a close-range
+audible signal envelope 8 kHz). Signal duration and repetition pattern fulfil the requirements
+for ADDs set in EU Regulation 812/2004 (CEC, 2004) emitting a series of one to three signals
+at random followed by a randomized 
+
 \section{Material and Methods}
 
+\subsection{Data recording,Area of Research}
+The used Data was obtained throughout the PAL-CE Project ("PAL use in German waters - Current efficiency and mode of operation"), managed by the German Maritime Museum in Stralsund and and financed by the Federal Office for Nature Conservation (BfN).
+In 2017 a few Fishers (Eight fishers selected in the beginning) in Schleswig-Holstein voluntarily attached PAL-Devices (Porpoise-ALert) to their fisher nets in order to reduce the bycatch of harbour porpoises in the baltic Sea. %freiwillige Vereinbarung 
+The Thuenen-institute for fishery in the Baltic Sea and other partners now research if the proven effects of these devices also lasts over a long period of time.
+While the PALs have been proven effected in Germany, where Harbour Porpoises have been exposed since 2017, the mammals in Denmark are considered naive. This give us the opportunity to wheter harbour porpoises show siginificant differences in their echolocation behaviour aorund nets with PAL between Germany and Denmark.  
+Three reference points of Observation, defining key fishing spots, in each country with three observation periods to get reference data. Each Station has been equipped with a click Detector (FPOD).
+The FPOD, as a passive acoustic monitoring device, detects the narrow-band high-frequency echolocation clicks of harbour porpoises and logs specific parameters for aech click. A List of all Parameters, such as time, duration, frequency, can be found in the Attachement %list of paraeters single clicks
+During post-prossesing the KERNO-F classifier of the FPOD-system identifies click trains using a non-machine earning algorithm that evaluates coherence and feature changes in clicks. As well as the raw click data, the processed train data is saved in files with features like frequency, bandwith, inter-click intervals and other classifications.
 
-\subsection{Area of Research}
-The used Data was obtained in Germany and Denmark. Three reference points of Observation in each country with three obersavtion periods
-Map of area with postioned FPODS: 
-
-Eight fishers selected to use PAL.
-
-\subsection{PAM/Acoustic Monitoring}
-observation method where acoustic device is deployed in ocean to capture sounds from surrounding environment, doesn't produce sound itself 
+Map of area with postioned FPODS:
+Picture of anchored FPODS:
 
 
 \subsection{FPODs, Software/Data Processing}
@@ -67,7 +83,8 @@ The KERNO CLassifier of the FPOD.exe software combines individual clicks into cl
 list of all parameters that are obtained for clicks and click trains:
 
 \subsection{Software, Data Processing}
-Use of software R, packages, statistical tests, hypothesis, significance of parameters: Wilcoxon-Mann-Whitney/Kruskal-Wallis (more than two datasets), effect-size calculation: eta-squared 
+Use of software R, packages, statistical tests, hypothesis, significance of parameters: Wilcoxon-Mann-Whitney/Kruskal-Wallis (more than two datasets),
+effect-size calculation: eta-squared 
 
 \subsection{Statistical Analysis}
 \subsection{Random Forest}
