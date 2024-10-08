@@ -70,6 +70,35 @@ The FPOD, as a passive acoustic monitoring device, detects the narrow-band high-
 During post-prossesing the KERNO-F classifier of the FPOD-system identifies click trains using a non-machine earning algorithm that evaluates coherence and feature changes in clicks. As well as the raw click data, the processed train data is saved in files with features like frequency, bandwith, inter-click intervals and other classifications.
 
 Map of area with postioned FPODS:
+<<>>=
+#working with latex and knitr
+library(leaflet)
+library(htmlwidgets)
+
+# Coordinates for the FPODS
+lat1 <- 56.01691703000
+lon1 <- 11.89418656540
+lat2 <- 56.14499405790
+lon2 <- 12.16950768870
+lat3 <- 55.91788
+lon3 <- 12.58320
+
+# Create the leaflet map
+map <- leaflet() %>%
+  addTiles() %>%
+  setView(lng = 12, lat = 56, zoom = 8) %>%
+  addMarkers(lng = lon1, lat = lat1, label = "Palle 1", 
+             labelOptions = labelOptions(noHide = TRUE)) %>%
+  addMarkers(lng = lon2, lat = lat2, label = "Palle 2", 
+             labelOptions = labelOptions(noHide = TRUE)) %>%
+  addMarkers(lng = lon3, lat = lat3, label = "Palle 3", 
+             labelOptions = labelOptions(noHide = TRUE))
+#making sure that the map is displayed and not just the code when knitting the document
+map
+@
+
+
+
 Picture of anchored FPODS:
 
 
