@@ -6,6 +6,7 @@
 \usepackage[backend=biber,style=alphabetic]{biblatex} % Corrected syntax
 \addbibresource{bibliography.bib}
 \usepackage{caption}
+\usepackage{float}
 
 \title{Bachelor Thesis}
 \author{Lina Fließ}
@@ -70,9 +71,11 @@ The FPOD, as a passive acoustic monitoring device, detects the narrow-band high-
 During post-prossesing the KERNO-F classifier of the FPOD-system identifies click trains using a non-machine earning algorithm that evaluates coherence and feature changes in clicks. As well as the raw click data, the processed train data is saved in files with features like frequency, bandwith, inter-click intervals and other classifications.
 
 Map of area with postioned FPODS:
-<<eval = T>>=
+<<echo = F>>=
 #working with latex and knitr
 library(leaflet)
+library(webshot)
+library(htmlwidgets)
 
 # Coordinates for the FPODS
 lat1 <- 56.01691703000
@@ -92,25 +95,17 @@ map <- leaflet() %>%
              labelOptions = labelOptions(noHide = TRUE)) %>%
   addMarkers(lng = lon3, lat = lat3, label = "Palle 3", 
              labelOptions = labelOptions(noHide = TRUE))
-#show map
-map
+saveWidget(map, "map.html", selfcontained = TRUE)
+webshot("map.html", file = "map.png", vwidth = 400, vheight = 200)
 @
-
-<<eval = T>>=
-# Add two and two
-2 + 2
-# Set the seed
-set.seed(12345)
-# Generate two vectors of 100 N(0,1) random numbers
-x <- rnorm(100)
-y <- rnorm(100)
-# Create a plot of x and y
-plot(x, y)
-@
-
+%add the just construcet map.png into th document
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{map.png}
+\caption{Position of the FPODS}
+\end{figure}
 
 Picture of anchored FPODS:
-
 
 \subsection{FPODs, Software/Data Processing}
 What they are and where they've been used, use of click trains.
@@ -127,23 +122,16 @@ effect-size calculation: eta-squared
 \subsection{Statistical Analysis}
 \subsection{Random Forest}
 \subsection{Machine Learning}
-
 \section{Results}
 \subsection{Comparison Data De/Dk}
 \subsection{Random Forest}
 \subsection{Classifier}
-
 \section{Discussion}
 \subsection{}
 \subsection{}
-
 \section{Bibliography/References}
 \printbibliography
-
 \section{Acknowledgements}
-
 \section{Affidavit}
-
 \section{Appendix}
-
 \end{document}
