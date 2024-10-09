@@ -7,6 +7,12 @@
 \addbibresource{bibliography.bib}
 \usepackage{caption}
 \usepackage{float}
+<<>>=
+# R code at the beginning of your script
+dir.create("temp", showWarnings = FALSE)
+setwd("C:/Users/linaf/OneDrive/Dokumente/GitHub/thesis_HPclicks/temp")
+@
+
 
 \title{Bachelor Thesis}
 \author{Lina Fließ}
@@ -70,14 +76,15 @@ Three reference points of Observation, defining key fishing spots, in each count
 The FPOD, as a passive acoustic monitoring device, detects the narrow-band high-frequency echolocation clicks of harbour porpoises and logs specific parameters for aech click. A List of all Parameters, such as time, duration, frequency, can be found in the Attachement %list of paraeters single clicks
 During post-prossesing the KERNO-F classifier of the FPOD-system identifies click trains using a non-machine earning algorithm that evaluates coherence and feature changes in clicks. As well as the raw click data, the processed train data is saved in files with features like frequency, bandwith, inter-click intervals and other classifications.
 
-Map of area with postioned FPODS: \\
+Map of area with postioned FPODS in Denmark: \\
+%just screenshot, put link with interactive map in appendix
 <<echo = F, warning=F>>=
 #working with latex and knitr
 library(leaflet)
 library(webshot)
 library(htmlwidgets)
 
-# Coordinates for the FPODS
+# Coordinates for the FPODS denmark
 lat1 <- 56.01691703000
 lon1 <- 11.89418656540
 lat2 <- 56.14499405790
@@ -86,7 +93,7 @@ lat3 <- 55.91788
 lon3 <- 12.58320
 
 # Create the leaflet map
-map <- leaflet() %>%
+DK_map <- leaflet() %>%
   addTiles() %>%
   setView(lng = 12, lat = 56, zoom = 9) %>%
   addMarkers(lng = lon1, lat = lat1, label = "Palle 1", 
@@ -95,8 +102,32 @@ map <- leaflet() %>%
              labelOptions = labelOptions(noHide = TRUE)) %>%
   addMarkers(lng = lon3, lat = lat3, label = "Palle 3", 
              labelOptions = labelOptions(noHide = TRUE))
-saveWidget(map, "map.html", selfcontained = TRUE)
-webshot("map.html", file = "map.png", vwidth = 800, vheight = 400)
+saveWidget(DK_map, "DK_map.html", selfcontained = TRUE)
+webshot("DK_map.html", file = "DK_map.png", vwidth = 800, vheight = 400)
+@
+
+Picture of anchored FPODS in Germany: \\
+<<echo = F, warning=F>>=
+# Coordinates for the FPODS germany
+lat1 <- 54.5382333
+lon1 <- 10.03633
+lat2 <- 54.5173
+lon2 <- 10.00165
+lat3 <- 54.4548333
+lon3 <- 9.8889333
+
+# Create the leaflet map
+DE_map <- leaflet() %>%
+  addTiles() %>%
+  setView(lng = 9.976, lat = 54.5, zoom = 11) %>%
+  addMarkers(lng = lon1, lat = lat1, label = "Bokniss Eck", 
+             labelOptions = labelOptions(noHide = TRUE)) %>%
+  addMarkers(lng = lon2, lat = lat2, label = "Langholz", 
+             labelOptions = labelOptions(noHide = TRUE)) %>%
+  addMarkers(lng = lon3, lat = lat3, label = "Aschau", 
+             labelOptions = labelOptions(noHide = TRUE))
+saveWidget(DE_map, "DE_map.html", selfcontained = TRUE)
+webshot("DE_map.html", file = "DE_map.png", vwidth = 800, vheight = 400)
 @
 
 Picture of anchored FPODS:
