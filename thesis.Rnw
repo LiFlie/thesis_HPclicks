@@ -7,11 +7,6 @@
 \addbibresource{bibliography.bib}
 \usepackage{caption}
 \usepackage{float}
-<<>>=
-# R code at the beginning of your script
-dir.create("temp", showWarnings = FALSE)
-setwd("C:/Users/linaf/OneDrive/Dokumente/GitHub/thesis_HPclicks/temp")
-@
 
 
 \title{Bachelor Thesis}
