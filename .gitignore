@@ -1,5 +1,26 @@
-.Rproj.user
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
-.xlsx
+#excel tables data DE/DK
+*.xlsx
+#created maps and picture for reference stations
+*.html
+*.png
+figure/
+#knitted  pdfs
+*.pdf
+# Ignore LaTeX generated files
+*.aux
+*.bcf
+*.bbl
+*.blg
+*.dvi
+*.lof
+*.lot
+*.out
+*.pdf
+*.log
+*.tex
+*.toc
+*.run.xml
