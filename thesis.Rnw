@@ -130,7 +130,7 @@ Picture of anchored FPODS:
 
 \subsection{FPODs, Software/Data Processing}
 What they are and where they've been used, use of click trains.
-Setup FPOD and PAL?
+Setup FPOD and PAL? %picture of FPOD and setup at net
 fully automatic, static, passive monitoring systems,  limited spatial coverage, continously collect data for months
 detection of echolocation clicks and click trains of porpoises, dolphins and other toothed whales
 logs different parameters of narrow-band high-frequency clicks, like time, duration, frequency, sound pressure etc.
@@ -138,10 +138,30 @@ The KERNO CLassifier of the FPOD.exe software combines individual clicks into cl
 list of all parameters that are obtained for clicks and click trains:
 
 \subsection{Software, Data Processing}
-Use of software R, packages, statistical tests, hypothesis, significance of parameters: \\ Wilcoxon-Mann-Whitney /Kruskal-Wallis (more than two datasets),
+Use of software R, packages, statistical tests, hypothesis, significance of parameters: \\ 
+Wilcoxon-Mann-Whitney /Kruskal-Wallis (more than two datasets),
 effect-size calculation: eta-squared 
 
 \subsection{Statistical Analysis}
+- comparison of data from germany and denmark, data spring 23 (3 refernce stations in each country)
+- later in appendix also data from autumn and spring 24
+- looking at only 5 parameters (nActualClx, medianKhz, MinICI_us, AvPRF, NofClstrs) that seem important considering the end goal, using PAL in denmark
+- correlation of parameters -> only 4 necessary to look at
+- visualization of data with chosen parameters
+- H_0: no significant difference in echolocation behaviour of harbour porpoises
+- summary with data
+- PLOTS
+* 4 histograms/density plot, one for each parameter, comparing germany and denmark in each plot (and the reference stations itself?)
+* 4 boxplots (/scatterplots --> more for relationship of two parameters)
+* also check differences between reference stations for each country??
+- checking requirements for tests, normality of distribution, homogeneity of variance (Levenes Test)
+- statistical test: Wilcoxon-Mann-Whitney (between germany and denmark)/Kruskal-Wallis (between the refernce stations)
+- statistical significance: p-value < 0.05
+- effect-size calculation: eta-squared
+
+- get data with treshold for number of clicks in a train
+- check statistical significance again
+
 \subsection{Random Forest}
 \subsection{Machine Learning}
 
@@ -162,5 +182,7 @@ effect-size calculation: eta-squared
 \section{Affidavit}
 
 \section{Appendix}
+- statistical plots of data with all seasons
+- whole list of parameters with explanation
 
 \end{document}
