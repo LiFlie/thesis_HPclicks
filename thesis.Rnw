@@ -9,6 +9,7 @@
 \usepackage{float}
 
 
+
 \title{Bachelor Thesis}
 \author{Lina Fließ}
 \date{\today}
@@ -27,25 +28,34 @@
 \listoftables\newpage
 \addcontentsline{toc}{section}{Abbreviations}
 \section*{Abbreviations}
-
+PAL
+PAM
+IUCN
+F-POD
 \section{Summary/Abstract}
+%Objective maybe at end of introduction?
+Objective of Work/Aim: determine whether harbour porpoise show significant differences in their echolocation behavior around nets between germany and denmark
 
 \section{Introduction}
 harbour porpoises (Phocoena phocoena) as an endangered species, affected by fisheries and often being bycatch
 use of PAL to reduces bycatch effectively --> short explanation how PAL works
-
-\subsection{Objective of the Work/Motivation}
-Aim: determine whether harbour porpoise show significant differences in their echolocation behavior around nets between germany and denmark
-
-\section{First Information (Theory)}
 mammals in germany have been exposd to PALS (explain somewhere??) since 2017
 
 \subsection{Harbour Porpoises, Echolocation}
 harbour porpoise (Phocoena phocoena) is a marine mammal in the Phocoenidae family, members of the toothed whale family
 prefer coastal, shallow waters
-IUCN red list status: baltic sea population is citically endangered
+only animal from the cetacean family that reproduces in the baltic sea and is native to the area
+possibel subsections; systematics, morphology/conservation status, distribution, behaviour/echolocatio
+%picture of harbour porpoise
+IUCN red list status: baltic sea population is critically endangered
 bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{brennecke2023marine}
 The harbor porpoises in the Baltic Sea that are native to us can be divided into two populations: those in the Belt Sea (west of Rügen to the Kattegat) and those in the central Baltic Sea (east of Rügen). %deutsches-meeeresmuseum
+
+\subsection{Hypothesis of Work, Aims of Study} %Arbeitshypothesen, Echoortung de und dk unterscheidet sich
+
+\section{Material and Methods}
+
+%put explanation of PAL and FPD Sin introduction or beginnning of materials?
 
 \subsection{PAM/Acoustic Monitoring, PALs}
 observation method where acoustic device is deployed in ocean to capture sounds from surrounding environment, doesn't produce sound itself 
@@ -60,13 +70,22 @@ audible signal envelope 8 kHz). Signal duration and repetition pattern fulfil th
 for ADDs set in EU Regulation 812/2004 (CEC, 2004) emitting a series of one to three signals
 at random followed by a randomized 
 
-\section{Material and Methods}
+\subsection{FPODs, Software/Data Processing}
+What they are and where they've been used, use of click trains.
+Setup FPOD and PAL? %picture of FPOD and setup at net
+fully automatic, static, passive monitoring systems,  limited spatial coverage, continously collect data for months
+detection of echolocation clicks and click trains of porpoises, dolphins and other toothed whales
+logs different parameters of narrow-band high-frequency clicks, like time, duration, frequency, sound pressure etc.
+The KERNO CLassifier of the FPOD.exe software combines individual clicks into click trains which have their own characteristics (time, duration, frequeny, sound pressure, inter-click-interval etc.)
+list of all parameters that are obtained for clicks and click trains:
+
 
 \subsection{Data recording,Area of Research}
 The used Data was obtained throughout the PAL-CE Project ("PAL use in German waters - Current efficiency and mode of operation"), managed by the German Maritime Museum in Stralsund and and financed by the Federal Office for Nature Conservation (BfN).
 In 2017 a few Fishers (Eight fishers selected in the beginning) in Schleswig-Holstein voluntarily attached PAL-Devices (Porpoise-ALert) to their fisher nets in order to reduce the bycatch of harbour porpoises in the baltic Sea. %freiwillige Vereinbarung 
 The Thuenen-institute for fishery in the Baltic Sea and other partners now research if the proven effects of these devices also lasts over a long period of time.
 While the PALs have been proven effected in Germany, where Harbour Porpoises have been exposed since 2017, the mammals in Denmark are considered naive. This give us the opportunity to wheter harbour porpoises show siginificant differences in their echolocation behaviour aorund nets with PAL between Germany and Denmark.  
+
 Three reference points of Observation, defining key fishing spots, in each country with three observation periods to get reference data. Each Station has been equipped with a click Detector (FPOD).
 The FPOD, as a passive acoustic monitoring device, detects the narrow-band high-frequency echolocation clicks of harbour porpoises and logs specific parameters for aech click. A List of all Parameters, such as time, duration, frequency, can be found in the Attachement %list of paraeters single clicks
 During post-prossesing the KERNO-F classifier of the FPOD-system identifies click trains using a non-machine earning algorithm that evaluates coherence and feature changes in clicks. As well as the raw click data, the processed train data is saved in files with features like frequency, bandwith, inter-click intervals and other classifications.
@@ -125,40 +144,41 @@ saveWidget(DE_map, "DE_map.html", selfcontained = TRUE)
 webshot("DE_map.html", file = "DE_map.png", vwidth = 800, vheight = 400)
 @
 
-Picture of anchored FPODS:
+\subsection{F-Pod recordings}
+Picture of anchored FPODS: %deployment
 
-
-\subsection{FPODs, Software/Data Processing}
-What they are and where they've been used, use of click trains.
-Setup FPOD and PAL? %picture of FPOD and setup at net
-fully automatic, static, passive monitoring systems,  limited spatial coverage, continously collect data for months
-detection of echolocation clicks and click trains of porpoises, dolphins and other toothed whales
-logs different parameters of narrow-band high-frequency clicks, like time, duration, frequency, sound pressure etc.
-The KERNO CLassifier of the FPOD.exe software combines individual clicks into click trains which have their own characteristics (time, duration, frequeny, sound pressure, inter-click-interval etc.)
-list of all parameters that are obtained for clicks and click trains:
-
+data collection
+list of parameters, software used
 \subsection{Software, Data Processing}
 Use of software R, packages, statistical tests, hypothesis, significance of parameters: \\ 
 Wilcoxon-Mann-Whitney /Kruskal-Wallis (more than two datasets),
 effect-size calculation: eta-squared 
 
 \subsection{Statistical Analysis}
+\subsubsection{software, data processing}
+Use of software R, packages, statistical tests, hypothesis, significance of parameters: \\ 
+Wilcoxon-Mann-Whitney /Kruskal-Wallis (more than two datasets),
+effect-size calculation: eta-squared 
+\subsubsection{Parameters}
+- looking at only 5 parameters (nActualClx, medianKhz, MinICIus, AvPRF, NofClstrs) \\
+that seem important considering the end goal, using PAL in denmark
+- correlation of parameters, only 4 necessary to look at
+\subsubsection{Plots}
 - comparison of data from germany and denmark, data spring 23 (3 refernce stations in each country)
 - later in appendix also data from autumn and spring 24
-- looking at only 5 parameters (nActualClx, medianKhz, MinICI_us, AvPRF, NofClstrs) that seem important considering the end goal, using PAL in denmark
-- correlation of parameters -> only 4 necessary to look at
-- visualization of data with chosen parameters
-- H_0: no significant difference in echolocation behaviour of harbour porpoises
-- summary with data
+- summary with data ??
 - PLOTS
-* 4 histograms/density plot, one for each parameter, comparing germany and denmark in each plot (and the reference stations itself?)
-* 4 boxplots (/scatterplots --> more for relationship of two parameters)
-* also check differences between reference stations for each country??
+* 4 histograms or density plot, one for each parameter, comparing germany and denmark in each plot (and the reference stations itself?)
+* 4 boxplots (or scatterplots --> more for relationship of two parameters)
+* also check differences between reference stations for each country?? \\
+\subsubsection{Hypothesis, Tests}
+- Null hypothesis: no significant difference in echolocation behaviour of harbour porpoises
 - checking requirements for tests, normality of distribution, homogeneity of variance (Levenes Test)
-- statistical test: Wilcoxon-Mann-Whitney (between germany and denmark)/Kruskal-Wallis (between the refernce stations)
-- statistical significance: p-value < 0.05
+- statistical test: Wilcoxon-Mann-Whitney (between germany and denmark)/ Kruskal-Wallis (between the refernce stations)
+- statistical significance: p-value(0.05)
+\subsubsection{Effect-size, Signficance}
 - effect-size calculation: eta-squared
-
+\subsubsection{new treshold}
 - get data with treshold for number of clicks in a train
 - check statistical significance again
 
