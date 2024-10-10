@@ -32,11 +32,16 @@ PAL
 PAM
 IUCN
 F-POD
+\addcontentsline{toc}{section}{List of Appendices}
+\section*{Appendices}
 \section{Summary/Abstract}
-%Objective maybe at end of introduction?
-Objective of Work/Aim: determine whether harbour porpoise show significant differences in their echolocation behavior around nets between germany and denmark
+%write at the end to be able to summarize
 
 \section{Introduction}
+%shows old findings of that topic, importance of your work 
+%what question/problem did you study?
+%not too technical, provides general information
+%literature review, explain what other researchers have found on your topic
 harbour porpoises (Phocoena phocoena) as an endangered species, affected by fisheries and often being bycatch
 use of PAL to reduces bycatch effectively --> short explanation how PAL works
 mammals in germany have been exposd to PALS (explain somewhere??) since 2017
@@ -50,11 +55,6 @@ possibel subsections; systematics, morphology/conservation status, distribution,
 IUCN red list status: baltic sea population is critically endangered
 bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{brennecke2023marine}
 The harbor porpoises in the Baltic Sea that are native to us can be divided into two populations: those in the Belt Sea (west of Rügen to the Kattegat) and those in the central Baltic Sea (east of Rügen). %deutsches-meeeresmuseum
-
-\subsection{Hypothesis of Work, Aims of Study} %Arbeitshypothesen, Echoortung de und dk unterscheidet sich
-
-\section{Material and Methods}
-
 %put explanation of PAL and FPD Sin introduction or beginnning of materials?
 
 \subsection{PAM/Acoustic Monitoring, PALs}
@@ -78,8 +78,25 @@ detection of echolocation clicks and click trains of porpoises, dolphins and oth
 logs different parameters of narrow-band high-frequency clicks, like time, duration, frequency, sound pressure etc.
 The KERNO CLassifier of the FPOD.exe software combines individual clicks into click trains which have their own characteristics (time, duration, frequeny, sound pressure, inter-click-interval etc.)
 list of all parameters that are obtained for clicks and click trains:
+\subsection{Hypothesis of Work, Aims of Study} %Arbeitshypothesen, Echoortung de und dk unterscheidet sich
+Objective of Work/Aim: determine whether harbour porpoise show significant differences in their echolocation behavior around nets between germany and denmark
 
+\section{Material and Methods}
+%WHEN the study was carried out
+%WHERE the study was carried out
+%WHAT materials, techniques, samples, data, approaches, theoretical frameworks were used in the study
+%HOW the study was carried out
+%WHAT procedures were used. 
 
+%Adopt the view of an outsider, someone unfamiliar with the project but familiar with the field. 
+%Be aware of any key information about method that was included in the abstract or introduction, but try to avoid repetition of the exact phrasing used elsewhere. 
+%Do not include too many details; don't omit details that reduce accuracy or clarity. 
+%Provide the reader with a paper trail; if a previously published article explains a complex method in details then cite the article so that the reader knows where to find the relevant information. 
+%Give credit where credit is due, citing other studies that have informed your method; if the method is described in multiple works then cite the one where it was first or best explained. 
+%Be careful not too leave out obvious but crucial information when describing very familiar techniques or steps.
+%Share a list of the steps for your method with a friend or colleague; if he or she can responsibly repeat the project and based on what is read test your same hypothesis, then your description is probably a solid one. 
+%Imagine that your reader wants to skim this part of the paper and still catch the most important information about materials and methods. 
+%Use subheadings to organize information; these will also assist the reader in skimming your work.  Examples of subheadings
 \subsection{Data recording,Area of Research}
 The used Data was obtained throughout the PAL-CE Project ("PAL use in German waters - Current efficiency and mode of operation"), managed by the German Maritime Museum in Stralsund and and financed by the Federal Office for Nature Conservation (BfN).
 In 2017 a few Fishers (Eight fishers selected in the beginning) in Schleswig-Holstein voluntarily attached PAL-Devices (Porpoise-ALert) to their fisher nets in order to reduce the bycatch of harbour porpoises in the baltic Sea. %freiwillige Vereinbarung 
@@ -164,13 +181,14 @@ effect-size calculation: eta-squared
 that seem important considering the end goal, using PAL in denmark
 - correlation of parameters, only 4 necessary to look at
 \subsubsection{Plots}
-- comparison of data from germany and denmark, data spring 23 (3 refernce stations in each country)
+- comparison of data from germany and denmark, data spring 23 (3 reference stations in each country)
 - later in appendix also data from autumn and spring 24
 - summary with data ??
-- PLOTS
-* 4 histograms or density plot, one for each parameter, comparing germany and denmark in each plot (and the reference stations itself?)
-* 4 boxplots (or scatterplots --> more for relationship of two parameters)
-* also check differences between reference stations for each country?? \\
+- PLOTS \\
+* 4 histograms or density plot, one for each parameter, comparing germany and denmark in each plot
+(and the reference stations itself?) \\
+* 4 boxplots (or scatterplots --> more for relationship of two parameters) \\
+* also check differences between reference stations for each country?? 
 \subsubsection{Hypothesis, Tests}
 - Null hypothesis: no significant difference in echolocation behaviour of harbour porpoises
 - checking requirements for tests, normality of distribution, homogeneity of variance (Levenes Test)
