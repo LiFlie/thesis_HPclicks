@@ -218,3 +218,110 @@ final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2, rel_heights = c(1, 1, 1, 1, 0.
 
 print(final_plot)
 ```
+
+```{r comparison DE/DK all, echo = False}
+#construct a plot_grid with 4  denisty plots, where the german and denmark dataframes are compared in each plot, looking at the four important paramters: MinICI, nActualClx, medianKHz, AvPRF
+p1 <- ggplot(Ref_both, aes(x = MinICI_us, fill = group)) +
+  geom_density(alpha = 0.2) +
+  xlim(0,50000) +
+  labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") 
+p2 <- ggplot(Ref_both, aes(x = nActualClx, fill = group)) +
+  geom_density(alpha = 0.2) +
+  xlim(0,50) +
+  labs(title = "Number of Actual Clicks", x = "Number of Actual Clicks", y = "Density") 
+p3 <- ggplot(Ref_both, aes(x = medianKHz, fill = group)) +
+  geom_density(alpha = 0.2) +
+  xlim(100,140) +
+  labs(title = "median Frequency of whole Train", x = "median KHz", y = "Density") 
+p4 <- ggplot(Ref_both, aes(x = AvPRF, fill = group)) +
+  geom_density(alpha = 0.2) +
+  xlim(0,100) +
+  labs(title = "Reciprocal of mean Interclick intervals", x = "AvPRF", y = "Density") 
+
+final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2)
+
+print(final_plot)
+```
+```{r comparison DE/DK, echo = False}
+#construct a plot_grid with 4  denisty plots, where the german and denmark dataframes are compared in each plot, looking at the four important paramters: MinICI, nActualClx, medianKHz, AvPRF
+p1 <- ggplot(Ref_both, aes(x = MinICI_us, fill = Country)) +
+  geom_density(alpha = 0.4) +
+  xlim(0,50000) +
+  labs(title = "Shortest ICI", x = "Shortest ICI", y = "Density") 
+p2 <- ggplot(Ref_both, aes(x = nActualClx, fill = Country)) +
+  geom_density(alpha = 0.4) +
+  xlim(0,50) +
+  labs(title = "Number of Actual Clicks", x = "Number of Actual Clicks", y = "Density") 
+p3 <- ggplot(Ref_both, aes(x = medianKHz, fill = Country)) +
+  geom_density(alpha = 0.4) +
+  xlim(100,140) +
+  labs(title = "median Frequency of whole Train", x = "median KHz", y = "Density") 
+p4 <- ggplot(Ref_both, aes(x = AvPRF, fill = Country)) +
+  geom_density(alpha = 0.4) +
+  xlim(0,100) +
+  labs(title = "Reciprocal of mean Interclick intervals", x = "AvPRF", y = "Density") 
+
+final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2)
+
+print(final_plot)
+```
+
+```{r comparison DE/DK all boxplot, echo = False}
+# Create boxplots instead of density plots
+p1 <- ggplot(Ref_both, aes(x = group, y = MinICI_us, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0, 50000) +
+  labs(title = "Shortest ICI", x = "Group", y = "Shortest ICI") 
+
+p2 <- ggplot(Ref_both, aes(x = group, y = nActualClx, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0, 50) +
+  labs(title = "Number of Actual Clicks", x = "Group", y = "Number of Actual Clicks") 
+
+p3 <- ggplot(Ref_both, aes(x = group, y = medianKHz, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(100, 140) +
+  labs(title = "Median Frequency of Whole Train", x = "Group", y = "Median KHz") 
+
+p4 <- ggplot(Ref_both, aes(x = group, y = AvPRF, fill = group)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0, 100) +
+  labs(title = "Reciprocal of Mean Interclick Intervals", x = "Group", y = "AvPRF") 
+
+# Combine the plots into a grid
+final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2)
+
+# Print the final plot
+print(final_plot)
+```
+
+
+```{r comparison DE/DK boxplot, echo = False}
+# Create boxplots instead of density plots
+p1 <- ggplot(Ref_both, aes(x = Country, y = MinICI_us, fill = Country)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0, 50000) +
+  labs(title = "Shortest ICI", x = "Country", y = "Shortest ICI") 
+
+p2 <- ggplot(Ref_both, aes(x = Country, y = nActualClx, fill = Country)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0, 50) +
+  labs(title = "Number of Actual Clicks", x = "Country", y = "Number of Actual Clicks") 
+
+p3 <- ggplot(Ref_both, aes(x = Country, y = medianKHz, fill = Country)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(100, 140) +
+  labs(title = "Median Frequency of Whole Train", x = "Country", y = "Median KHz") 
+
+p4 <- ggplot(Ref_both, aes(x = Country, y = AvPRF, fill = Country)) +
+  geom_boxplot(alpha = 0.5) +
+  ylim(0, 100) +
+  labs(title = "Reciprocal of Mean Interclick Intervals", x = "Country", y = "AvPRF") 
+
+# Combine the plots into a grid
+final_plot <- plot_grid(p1, p2, p3, p4, ncol = 2)
+
+# Print the final plot
+print(final_plot)
+```
+
