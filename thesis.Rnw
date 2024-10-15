@@ -1,12 +1,16 @@
-\documentclass[english, 11pt]{article}
+\documentclass[english, 12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc} % Improved font encoding
 \usepackage[english]{babel} % Language support
 \usepackage{csquotes}
 \usepackage[backend=biber,style=alphabetic]{biblatex} % Corrected syntax
-\addbibresource{bibliography.bib}
+\usepackage[a4paper, margin=2.5cm]{geometry}  % 2,5 cm margin
+\usepackage{setspace}
+\onehalfspacing  %1,5 line spacing
 \usepackage{caption}
+\usepackage{float}
 
+\addbibresource{bibliography.bib}
 
 \title{Bachelor Thesis}
 \author{Lina Fließ}
@@ -22,6 +26,7 @@
 
 \addcontentsline{toc}{section}{List of Figures}
 \listoffigures\newpage
+\input{figures.tex}
 \addcontentsline{toc}{section}{List of Tables}
 \listoftables\newpage
 \addcontentsline{toc}{section}{Abbreviations}
@@ -31,8 +36,52 @@ PAM
 IUCN
 F-POD
 \addcontentsline{toc}{section}{List of Appendices}
-\section*{Appendices}
-%table with statistical plots for all season data
+<<librarys, echo = F, warnings = F>>=
+library(readxl)
+library(ggplot2)
+library(car)
+library(psych)
+library(patchwork)
+library(dplyr)
+library(cowplot)
+@
+
+
+<<Data DE, echo = F, warning= F>>=
+Ref_DE_Aschau <- read_excel("AS_78 2023 02 28 FPOD_6889_train_details_filtered.xlsx")
+Ref_DE_BoEck <- read_excel("BoEck 2023 02 07 FPOD_6877_train_details.xlsx")
+Ref_DE_Langholz <- mutate(read_excel("LA_6888_ref23_traindetails_filtered_240617.xlsx"), Country = "DE", Std = "LA")
+#bind all dataframes from german ref stations
+Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
+@
+
+<<Data DK, echo = F, warning= F>>=
+Ref_DK_6621 <- read_excel("2023 02 21 FPOD_6621 file0_train_details.xlsx")
+Ref_DK_6623 <- read_excel("2023 02 21  2023 02 21 FPOD_6623 file0 train details.xlsx")
+Ref_DK_6625 <- read_excel("20230221 2023 02 21 FPOD_6625 file0 train details.xlsx")
+#bind all dataframes from danish ref stations
+Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
+@
+
+<<groups, echo = F, warning= F>>=
+Ref_DE_Aschau$group <- 'Aschau'
+Ref_DE_BoEck$group <- 'BoEck'
+Ref_DE_Langholz$group <- 'Langholz'
+Ref_DE <- rbind(Ref_DE_Aschau, Ref_DE_BoEck, Ref_DE_Langholz)
+Ref_DK_6621$group <- '6621'
+Ref_DK_6623$group <- '6623'
+Ref_DK_6625$group <- '6625'
+Ref_DK <- rbind(Ref_DK_6621, Ref_DK_6623, Ref_DK_6625)
+Ref_both <- rbind(Ref_DE,Ref_DK)
+@
+
+<<reduced, echo = F, warning= F>>=
+Ref_both_reduced <- Ref_both[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
+Ref_DE_reduced <- Ref_DE[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
+Ref_DK_reduced <- Ref_DK[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
+@
+
+
 \section{Summary/Abstract}
 %write at the end to be able to summarize
 
@@ -48,25 +97,18 @@ mammals in germany have been exposd to PALS (explain somewhere??) since 2017
 \subsection{Harbour Porpoises, Echolocation}
 %possibel subsections; systematics, morphology/conservation status, distribution, behaviour/echolocatio
 \subsubsection{General Information}
-harbour porpoise (Phocoena phocoena) is a marine mammal in the Phocoenidae family, members of the toothed whale family
-make up their own family apart from dolphins
-prefer coastal, shallow waters, distribution mostly on th northern hemisphere
-only animal from the cetacean family that reproduces in the baltic sea and is native to the area
-The harbour porpoises in the baltic see can be seperated into two populations: those in the Belt Sea (west of Rügen to the Kattegat) and those in the central Baltic Sea (east of Rügen). %deutsches-meeeresmuseum
-%picture of harbour porpoise
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{figures/Harbour_Porpoise.png}
-    \caption[Harbour porpoise]{Habitus of Harbour Porpoise. \\
-    Source: © DigitalLife3D cc/by-nc/4.0/}
-    \label{fig:harbor_porpoise}
-\end{figure}
+The harbour porpoise (Phocoena phocoena), a member of the family Phocoenidae, is one of the smallest and most widespread species among toothed whales \cite{Miller2013}. \\
+The subspecies inhabiting the waters around Germany, particularly in the North Sea and Baltic Sea, is Phocoena phocoena phocoena, which is commonly found in the North Atlantic. \\
+These marine mammals are elusive and difficult to observe, as they rarely engage in surface behaviors such as bow-riding, making them hard to spot.\cite{Brennecke2023} \\
+They typically form small groups consisting of fewer than eight individuals and are predominantly found in coastal waters throughout the northern hemisphere \cite{Miller2013} \\ %or {brennecke, marine mammals} 
+The Baltic Sea harbour porpoises can be divided into two subpopulations: those in the Belt Sea and those in the central Baltic Sea, which are also sometimes categorized as the Inner Danish Waters and the broader Baltic Sea \cite{Culik2011}. \\
+The different subpopulations of harbour porpoises are not known to migrate extensively, with movement generally confined to their specific regions \\ %cite{???}.
+While the IUCN classifies the species as "Least Concern" globally, the Baltic Sea population is listed as critically endangered, and the North Sea population is considered near threatened, although the exact number of individuals remains uncertain \cite{Brennecke2023}. \\
+Harbour porpoises feed on a wide variety of fish and cephalopods, their primary prey items vary depending on regional and seasonal factors \cite{Jefferson1995}. Prey species are generally less than 40 cm in length, with most ranging between 10 and 30 cm. However, their feeding behavior brings them into contact with two significant threats—persistent organic contaminants and fishing nets—both of which pose serious risks to their health and survival \\ %\cite{Culik2011}.
+Porpoises are caught in a variety of fishing gear, including weirs, pound nets, cod traps, purse seine nets, and surface gill nets. However, the vast majority of bycatch mortality occurs in bottom-set gill nets, posing a critical threat to the species \cite{Culik2011}. \\
 
-IUCN red list status: baltic sea population is critically endangered, north sea population is near threatened, unsure about number of individuals
-%international project SAMBAH
-%information about biology, reproduction, behavoiur?? 
-feed on fish that live on the seabed as well as on schooling fish
-Prey animals are generally no larger than 30 cm
+\ref{fig:harbour_porpoise}
+
 \subsubsection{Echolocation}
 %picture for better understanding of function echolocation
 have biosonar, use the so-called “phonic lips”, an organ similar to the vocal folds, to produce short, high-frequency clicks
@@ -82,7 +124,7 @@ harbour porpoises almost constantly send out a series of clicks and it's therefo
 
 \subsubsection{Bycatch}
 in baltic sea for harbour porpoise no natural predators, only threat is humans, anthropogenic threats
-bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{brennecke2023marine}
+bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{Brennecke2023}
 Most fishing nets today are made from very thin nylon threads. These cannot locate the porpoises in time because the sound is not sufficiently reflected by the nets
 Once caught in the nets, they can no longer swim to the surface to breathe and drown or at least suffer serious injuries
 
@@ -233,6 +275,12 @@ that seem important considering the end goal, using PAL in denmark
 - later in appendix also data from autumn and spring 24
 - summary with data ??
 - PLOTS \\
+<<>>=
+#4plots comparing germany and denmark (in one plot) for each parameter
+#first density, then boxplots
+
+@
+
 * 4 histograms or density plot, one for each parameter, comparing germany and denmark in each plot
 (and the reference stations itself?) \\
 * 4 boxplots (or scatterplots --> more for relationship of two parameters) \\
