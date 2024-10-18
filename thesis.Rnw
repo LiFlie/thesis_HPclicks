@@ -3,7 +3,8 @@
 \usepackage[T1]{fontenc} % Improved font encoding
 \usepackage[english]{babel} % Language support
 \usepackage{csquotes}
-\usepackage[backend=biber,style=alphabetic]{biblatex} % Corrected syntax
+\usepackage{parskip} %blocksatz
+\usepackage[backend=biber,style=numeric-comp]{biblatex} % Corrected syntax
 \usepackage[a4paper, margin=2.5cm]{geometry}  % 2,5 cm margin
 \usepackage{setspace}
 \onehalfspacing  %1,5 line spacing
@@ -11,6 +12,7 @@
 \usepackage{float}
 
 \addbibresource{bibliography.bib}
+
 
 \title{Bachelor Thesis}
 \author{Lina Fließ}
@@ -26,6 +28,7 @@
 
 \addcontentsline{toc}{section}{List of Figures}
 \listoffigures\newpage
+\input{figures.tex}
 \addcontentsline{toc}{section}{List of Tables}
 \listoftables\newpage
 \addcontentsline{toc}{section}{Abbreviations}
@@ -36,7 +39,7 @@ IUCN
 F-POD
 \addcontentsline{toc}{section}{List of Appendices}
 
-<<librarys, echo = F, warnings = F>>=
+<<librarys, echo = F, error=FALSE, warning=FALSE>>=
 library(readxl)
 library(ggplot2)
 library(car)
@@ -81,10 +84,11 @@ Ref_DE_reduced <- Ref_DE[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofCl
 Ref_DK_reduced <- Ref_DK[,c("nActualClx","medianKHz","AvPRF","MinICI_us", "NofClstrs")]
 @
 
-
+\newpage
 \section{Summary/Abstract}
 %write at the end to be able to summarize
 
+\newpage
 \section{Introduction}
 %shows old findings of that topic, importance of your work 
 %what question/problem did you study?
@@ -95,24 +99,23 @@ use of PAL to reduces bycatch effectively --> short explanation how PAL works
 mammals in germany have been exposd to PALS (explain somewhere??) since 2017
 
 \subsection{Harbour Porpoises, Echolocation}
-%possibel subsections; systematics, morphology/conservation status, distribution, behaviour/echolocatio
 \subsubsection{General Information}
 The harbour porpoise (Phocoena phocoena), a member of the family Phocoenidae, is one of the smallest and most widespread species among toothed whales \cite{Miller2013}.
 The subspecies inhabiting the waters around Germany, particularly in the North Sea and Baltic Sea, is Phocoena phocoena phocoena, which is commonly found in the North Atlantic.
-These marine mammals are elusive and difficult to observe, as they rarely engage in surface behaviors such as bow-riding, making them hard to spot.\cite{Brennecke2023} \\
+These marine mammals are elusive and difficult to observe, as they rarely engage in surface behaviors such as bow-riding, making them hard to spot.\cite{Brennecke2023} 
 They typically form small groups consisting of fewer than eight individuals and are predominantly found in coastal waters throughout the northern hemisphere \cite{Miller2013} %or {brennecke, marine mammals} 
-The Baltic Sea harbour porpoises can be divided into two subpopulations: those in the Belt Sea and those in the central Baltic Sea, which are also sometimes categorized as the Inner Danish Waters and the broader Baltic Sea \cite{Culik2011}. \\
+The Baltic Sea harbour porpoises can be divided into two subpopulations: those in the Belt Sea and those in the central Baltic Sea, which are also sometimes categorized as the Inner Danish Waters and the broader Baltic Sea \cite{Culik2011}.
 The different subpopulations of harbour porpoises are not known to migrate extensively, with movement generally confined to their specific regions %cite{???}.
-While the IUCN classifies the species as "Least Concern" globally, the Baltic Sea population is listed as critically endangered, and the North Sea population is considered near threatened, although the exact number of individuals remains uncertain \cite{Brennecke2023}. \\
+While the IUCN classifies the species as "Least Concern" globally, the Baltic Sea population is listed as critically endangered, and the North Sea population is considered near threatened, although the exact number of individuals remains uncertain \cite{Brennecke2023}.
 Harbour porpoises feed on a wide variety of fish and cephalopods, their primary prey items vary depending on regional and seasonal factors \cite{Jefferson1995}. Prey species are generally less than 40 cm in length, with most ranging between 10 and 30 cm. However, their feeding behavior brings them into contact with two significant threats—persistent organic contaminants and fishing nets—both of which pose serious risks to their health and survival %\cite{Culik2011}.
-Porpoises are caught in a variety of fishing gear, including weirs, pound nets, cod traps, purse seine nets, and surface gill nets. However, the vast majority of bycatch mortality occurs in bottom-set gill nets, posing a critical threat to the species \cite{Culik2011}. \\
+Porpoises are caught in a variety of fishing gear, including weirs, pound nets, cod traps, purse seine nets, and surface gill nets. However, the vast majority of bycatch mortality occurs in bottom-set gill nets, posing a critical threat to the species \cite{Culik2011}.
 
-\input{figures.tex}
-\ref{fig:harbour_porpoise}
+\porpoise
+%\ref{fig:harbour_porpoise}
 
 \subsubsection{Echolocation}
 %picture for better understanding of function echolocation
-\ref{fig:echolocation}
+\echolocation
 Many odontocetes (toothed whales) use echolocation to detect prey, such as fish and squid, during foraging activities (Miller). Harbor porpoises also rely on biosonar for spatial orientation and navigation, using the echoes of their emitted sound waves (Verfuß). % Porpoises only produce NBHF clicks arranged in specific click trains (Culik, von Dorrien).
 
 Narrowband high-frequency (NBHF) signals are generated through ‘phonic lips’ located in the nasal passages and emitted in a narrow beam via the melon, an organ made up of layers of tissue. These clicks help porpoises determine the distance and direction of potential prey or obstacles (Villadsgaard). % It is important to note that sound travels faster in water.
@@ -149,10 +152,13 @@ In recent years, passive acoustic monitoring (PAM) for odontocete biosonar signa
 %list of all parameters that are obtained for clicks and click trains:
 
 %picture of PAL compared to FPOD
+\devices
+\setup
 
 \subsection{Hypothesis of Work, Aims of Study} %Arbeitshypothesen, Echoortung de und dk unterscheidet sich
 Objective of Work/Aim: determine whether harbour porpoise show significant differences in their echolocation behavior around nets between germany and denmark
 
+\newpage
 \section{Material and Methods}
 %WHEN the study was carried out
 %WHERE the study was carried out
@@ -282,22 +288,28 @@ that seem important considering the end goal, using PAL in denmark
 \subsection{Random Forest}
 \subsection{Machine Learning}
 
+\newpage
 \section{Results}
 \subsection{Comparison Data De/Dk}
 \subsection{Random Forest}
 \subsection{Classifier}
 
+\newpage
 \section{Discussion}
 \subsection{}
 \subsection{}
 
+\newpage
 \section{Bibliography/References}
 \printbibliography
 
+\newpage
 \section{Acknowledgements}
 
+\newpage
 \section{Affidavit}
 
+\newpage
 \section{Appendix}
 - statistical plots of data with all seasons
 - whole list of parameters with explanation
