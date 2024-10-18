@@ -26,7 +26,6 @@
 
 \addcontentsline{toc}{section}{List of Figures}
 \listoffigures\newpage
-\input{figures.tex}
 \addcontentsline{toc}{section}{List of Tables}
 \listoftables\newpage
 \addcontentsline{toc}{section}{Abbreviations}
@@ -36,6 +35,7 @@ PAM
 IUCN
 F-POD
 \addcontentsline{toc}{section}{List of Appendices}
+
 <<librarys, echo = F, warnings = F>>=
 library(readxl)
 library(ggplot2)
@@ -97,73 +97,56 @@ mammals in germany have been exposd to PALS (explain somewhere??) since 2017
 \subsection{Harbour Porpoises, Echolocation}
 %possibel subsections; systematics, morphology/conservation status, distribution, behaviour/echolocatio
 \subsubsection{General Information}
-The harbour porpoise (Phocoena phocoena), a member of the family Phocoenidae, is one of the smallest and most widespread species among toothed whales \cite{Miller2013}. \\
-The subspecies inhabiting the waters around Germany, particularly in the North Sea and Baltic Sea, is Phocoena phocoena phocoena, which is commonly found in the North Atlantic. \\
+The harbour porpoise (Phocoena phocoena), a member of the family Phocoenidae, is one of the smallest and most widespread species among toothed whales \cite{Miller2013}.
+The subspecies inhabiting the waters around Germany, particularly in the North Sea and Baltic Sea, is Phocoena phocoena phocoena, which is commonly found in the North Atlantic.
 These marine mammals are elusive and difficult to observe, as they rarely engage in surface behaviors such as bow-riding, making them hard to spot.\cite{Brennecke2023} \\
-They typically form small groups consisting of fewer than eight individuals and are predominantly found in coastal waters throughout the northern hemisphere \cite{Miller2013} \\ %or {brennecke, marine mammals} 
+They typically form small groups consisting of fewer than eight individuals and are predominantly found in coastal waters throughout the northern hemisphere \cite{Miller2013} %or {brennecke, marine mammals} 
 The Baltic Sea harbour porpoises can be divided into two subpopulations: those in the Belt Sea and those in the central Baltic Sea, which are also sometimes categorized as the Inner Danish Waters and the broader Baltic Sea \cite{Culik2011}. \\
-The different subpopulations of harbour porpoises are not known to migrate extensively, with movement generally confined to their specific regions \\ %cite{???}.
+The different subpopulations of harbour porpoises are not known to migrate extensively, with movement generally confined to their specific regions %cite{???}.
 While the IUCN classifies the species as "Least Concern" globally, the Baltic Sea population is listed as critically endangered, and the North Sea population is considered near threatened, although the exact number of individuals remains uncertain \cite{Brennecke2023}. \\
-Harbour porpoises feed on a wide variety of fish and cephalopods, their primary prey items vary depending on regional and seasonal factors \cite{Jefferson1995}. Prey species are generally less than 40 cm in length, with most ranging between 10 and 30 cm. However, their feeding behavior brings them into contact with two significant threats—persistent organic contaminants and fishing nets—both of which pose serious risks to their health and survival \\ %\cite{Culik2011}.
+Harbour porpoises feed on a wide variety of fish and cephalopods, their primary prey items vary depending on regional and seasonal factors \cite{Jefferson1995}. Prey species are generally less than 40 cm in length, with most ranging between 10 and 30 cm. However, their feeding behavior brings them into contact with two significant threats—persistent organic contaminants and fishing nets—both of which pose serious risks to their health and survival %\cite{Culik2011}.
 Porpoises are caught in a variety of fishing gear, including weirs, pound nets, cod traps, purse seine nets, and surface gill nets. However, the vast majority of bycatch mortality occurs in bottom-set gill nets, posing a critical threat to the species \cite{Culik2011}. \\
 
+\input{figures.tex}
 \ref{fig:harbour_porpoise}
 
 \subsubsection{Echolocation}
 %picture for better understanding of function echolocation
-have biosonar, use the so-called “phonic lips”, an organ similar to the vocal folds, to produce short, high-frequency clicks
-are bundled in the melon, an organ made up of different layers of fatty tissue, and released into the water as sound waves
-used for orientation, navigation, communication, and hunting
-sound waves travel through water with a velocity of 1500 m per s (4,5 times faster than in air), reflected by objects in the water, and return to the porpoise
-is taken up again by the porpoise via the lower jaw, a very thin hollow bone
-There is also a fatty channel there that transmits the bundled waves to the inner ear, click sounds are registered and the information obtained is then processed by the brain
-the echo is used to determine the distance, size, shape, speed, and direction of movement of objects in the water
-the frequence of the clicks is between 130 and 150 kHz (humans can only hear until 20kHz)
-harbour porpoises almost constantly send out a series of clicks and it's therefore a good way to detect and monitor them
-%explanation click trains, ICIs
+\ref{fig:echolocation}
+Many odontocetes (toothed whales) use echolocation to detect prey, such as fish and squid, during foraging activities (Miller). Harbor porpoises also rely on biosonar for spatial orientation and navigation, using the echoes of their emitted sound waves (Verfuß). % Porpoises only produce NBHF clicks arranged in specific click trains (Culik, von Dorrien).
+
+Narrowband high-frequency (NBHF) signals are generated through ‘phonic lips’ located in the nasal passages and emitted in a narrow beam via the melon, an organ made up of layers of tissue. These clicks help porpoises determine the distance and direction of potential prey or obstacles (Villadsgaard). % It is important to note that sound travels faster in water.
+
+To avoid echo overlap, the interval between clicks is adjusted, with inter-pulse intervals (IPIs) linearly correlated with target range. Frequencies of 100-140 kHz with bandwidths of 6-26 kHz and a typical IPI of ~60 ms are commonly observed. Porpoise clicks, centered around 130 kHz, exhibit durations of around 100 microseconds, high directionality, and source levels generally below 200 dB re 1 microPa %change into math (Clausen). 
+
+Due to a low-noise window, the optimal echo-to-noise ratio for detecting objects within a few hundred meters occurs for clicks around 130 kHz. The high directionality of NBHF signals helps reduce clutter from small objects, making them ideal for echolocation in complex environments. To achieve similar directionality, smaller echolocating animals like porpoises use higher frequencies than larger species, as directionality is influenced by the relationship between the size of the sound-emitting organ and the wavelength of the emitted sound (Kyhn). 
+
+High-frequency sounds are more easily absorbed by water and therefore have a shorter detection range. While many toothed whales use high-frequency clicks primarily for echolocation and lower frequencies for communication, porpoises also use NBHF signals for social interaction and communication, emitting stereotyped click trains. % Koschinski, click train patterns. 
+
+Harbor porpoises nearly continuously emit clicks, making them highly detectable in monitoring efforts. Differences in echolocation properties among porpoise populations suggest the possibility of unique communication signals. Though dialects among porpoises have not been fully studied, noticeable adaptations in click patterns between species like Dall’s and harbor porpoises have been observed, possibly due to habituation.
 
 \subsubsection{Bycatch}
-in baltic sea for harbour porpoise no natural predators, only threat is humans, anthropogenic threats
-bycatch is one of the major anthropogenic threats to marine mammals (quantitative measueres scarce, bycatch not well documented/incidents rarely reported) \cite{Brennecke2023}
-Most fishing nets today are made from very thin nylon threads. These cannot locate the porpoises in time because the sound is not sufficiently reflected by the nets
-Once caught in the nets, they can no longer swim to the surface to breathe and drown or at least suffer serious injuries
+In a study on harbor and finless porpoises, it was found that these species can swim without emitting intense clicks up to a distance of 10 meters. This behavior is crucial for animals in gillnet fisheries, which are a leading anthropogenic cause of harbor porpoise mortality in the Baltic Sea (Culik, Chladek). Bycatch, particularly in bottom-set gillnets, remains one of the primary threats to marine mammals, including harbor porpoises (Brennecke), as they often become entangled in various types of fishing gear.
 
-%put explanation of PAL and FPD Sin introduction or beginnning of materials?
+Baltic porpoises, classified as "critically endangered," face the risk of extinction in the near future unless effective bycatch prevention measures are implemented to preserve marine mammal diversity. The ability of porpoises to detect gillnets is not well understood (Akamatsu), and the thin monofilament nylon threads used in most fishing nets provide minimal sound reflection. This results in echoes insufficient for porpoises to detect the nets in time, increasing the likelihood of entanglement. 
 
-\subsection{PAM/Acoustic Monitoring, PALs}
-observation method where acoustic device is deployed in ocean to capture sounds from surrounding environment, doesn't produce sound itself 
+Once entangled, porpoises can no longer swim to the surface to breathe and may suffer fatal injuries. The detectable ranges for the lead-line and netting of a gillnet were estimated at 9 meters and 2 meters, respectively, for harbor porpoise sonar (Hatakeyama and Soeda, 1990; Akamatsu).
 
-bycatch as one of the biggest challenges for nature conservation 
-Since December 2013, Schleswig-Holstein has had a voluntary agreement between the fishing associations, the Baltic Sea Information Center Eckernförde (OIC) and the state of Schleswig-Holstein
-Under this voluntary agreement, participating fishermen must shorten their nets depending on the length of their vessel. Since 2018, fishermen who equip their nets with Porpoise Alerting Devices (PAL) devices no longer have to reduce the length of the net
-explanation of PAL:
+\subsection{PALs}
+Acoustic deterrent devices (ADDs) or pingers, attached to fishing nets, have proven effective in reducing bycatch by emitting aversive noise. However, despite their success, certain risks persist, such as the reduced responsiveness of porpoises over time, leading to habituation. To address these challenges, a new programmable sound-emitting device called the PAL (Porpoise Alert), introduced by Culik and Conrad, has been developed to enhance bycatch prevention strategies.
 
-PALs emit artificial porpoise-like clicks that resemble an aggressive click sequence and are intended to alarm the porpoises and alert them to possible danger. This system is designed to ensure that the porpoises learn over time that the signal is associated with potential danger. 
+The PAL device synthesizes lifelike harbor porpoise communication signals, focusing on three types of aggressive click trains. Unlike traditional pingers, PAL emits biologically significant signals reinforced during interspecies interactions, which reduces the likelihood of habituation. Programmed via custom software, PAL generates porpoise-like clicks and click train patterns with adjustable rates and pauses. Tests conducted in commercial gillnet fisheries in the western Baltic, under a voluntary agreement with fishermen, demonstrated a 64.9% reduction in harbor porpoise bycatch. The reduction increased to up to 80% when devices were placed less than 200 meters apart.
 
-PAL is a spindle-shaped acoustic transducer optimized for use in fisheries. It emits a single
-synthetic signal termed “F3” (Culik et al. 2015) consisting of two upsweep chirps beginning
-with a click rate of 173 clicks/s and ending with 959 clicks/s. PAL has a centroid frequency
-of 133 ± 8.5 kHz; mean source level 147 dB peak – peak re 1 %μ Pa@1 m (± 5 dB Standard
-Deviation; n = 36 measurements in 10 ◦ around the longitudinal axis, and a close-range
-audible signal envelope 8 kHz). Signal duration and repetition pattern fulfil the requirements
-for ADDs set in EU Regulation 812/2004 (CEC, 2004) emitting a series of one to three signals
-at random followed by a randomized 
-
-While this principle has been shown to reduce harbor porpoise bycatch rates, it is currently unclear
-
-whether PALs work over long periods of time or whether they become less effective at reducing bycatch over time,
-whether PALs permanently alert porpoises, or whether this principle changes over time,\\
-and how PALs can influence the spatial distribution of harbor porpoises over longer periods of time. % --> Project PAL-CE
+%While this principle has been shown to reduce harbor porpoise bycatch rates, it is currently unclear whether PALs work over long periods of time or whether they become less effective at reducing bycatch over time, whether PALs permanently alert porpoises, or whether this principle changes over time,\\ and how PALs can influence the spatial distribution of harbor porpoises over longer periods of time. 
+% --> Project PAL-CE
 
 
-\subsection{FPODs, Software/Data Processing}
-What they are and where they've been used, use of click trains.
-Setup FPOD and PAL? %picture of FPOD and setup at net
-fully automatic, static, passive monitoring systems,  limited spatial coverage, continously collect data for months
-detection of echolocation clicks and click trains of porpoises, dolphins and other toothed whales
-logs different parameters of narrow-band high-frequency clicks, like time, duration, frequency, sound pressure etc.
-The KERNO CLassifier of the FPOD.exe software combines individual clicks into click trains which have their own characteristics (time, duration, frequeny, sound pressure, inter-click-interval etc.)
-list of all parameters that are obtained for clicks and click trains:
+\subsection{Passive Acoustic Monitoring}
+In recent years, passive acoustic monitoring (PAM) for odontocete biosonar signals has become increasingly common. Visual observations can be logistically challenging, so tagging animals with acoustic monitoring devices or deploying TPODs/CPODs has become a valuable method for collecting data. Spectral differences between species enable acoustic differentiation of several sympatric NBHF species when using dataloggers. Porpoise detectors, such as T-PODs or C-PODs, which are self-contained and anchored, have shown promise in behavioral studies. These devices record various parameters of ultrasound clicks, including time, duration, and frequency, and software analysis identifies click trains based on inter-click intervals (ICIs).
+% reduction in harbor porpoise bycatch. The reduction increased to up to 80% when devices were placed less than 200 meters apart.
+
+%The KERNO CLassifier of the FPOD.exe software combines individual clicks into click trains which have their own characteristics (time, duration, frequeny, sound pressure, inter-click-interval etc.)
+%list of all parameters that are obtained for clicks and click trains:
 
 %picture of PAL compared to FPOD
 
